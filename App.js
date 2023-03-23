@@ -31,7 +31,7 @@ const App = () => {
           ]}
           onPress={() => handleTabPress("locations")}
         >
-          <Ionicons name="md-pin" size={24} color="white" />
+          <Ionicons nme="md-pin" size={24} color="white" />
         </TouchableOpacity>
       </View>
       {/* Your existing code with 8 buttons */}
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   activeButton: {
-    backgroundColor: "#FF0000",
+    backgroundColor: "#FFDB58",
   },
   buttonText: {
     fontSize: 16,
