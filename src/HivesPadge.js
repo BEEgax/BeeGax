@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {View, Text, StyleSheet, Button } from 'react-native';
-import POPUP from './Popup.js';
+import BeescaAPI from "./BeescaAPI";
 
 
 const HivesPadge = ({ navigation }) => {
@@ -12,9 +12,9 @@ const HivesPadge = ({ navigation }) => {
     });
     newList.pop()
     newList.push("gaxe")
-    setButtonList(newList)
+    setButtonList(BeescaAPI.getHives())
   };
-  const [buttonList, setButtonList] = useState(['+', '+', '+', '+', "+","+","+","+"]);
+  const [buttonList, setButtonList] = useState(BeescaAPI.getHives());
 
   const renderButton = (buttonText) => {
     return <Button title={buttonText} onPress={() => POPUPconf(buttonText)} />;
