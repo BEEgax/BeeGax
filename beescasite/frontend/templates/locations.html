@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BeeSca</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="/static/media/test.ico" />
+    <link rel="stylesheet" href={% static "../static/css/style.css" %}>
+    <link rel="icon" type="image/x-icon" href="../static/images/bwwhot.ico" />
+    
+    <script defer src={% static '/js/locations.js' %}></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul>
+            <li>
+                <img src={% static "/media/bee_logo.png" %} style="width:100%">
+            </li>
+            <li>
+                <a href="/" class="navbar_button">
+                    <i class="fa fa-home w3-xxlarge"></i>
+                    <p>HIVES</p>
+                </a>
+            </li>
+            <li>
+                <a href="./functionalCharts" class="navbar_button">
+                    <i class="fa fa-user w3-xxlarge"></i>
+                    <p>CHARTS</p>
+                </a>
+            </li>
+            <li>
+                <a href="./locations" class="navbar_button">
+                    <i class="fa fa-eye w3-xxlarge"></i>
+                    <p>LOCATIONS</p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="mini_main">
+            <div id="map">
+
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d7686.174953755277!2d15.888479974128408!3d47.070183089509804!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDfCsDA0JzAyLjQiTiAxNcKwNTMnMjQuMCJF!5e0!3m2!1sde!2sat!4v1677758884121!5m2!1sde!2sat" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </main>
+
+</body>
+<footer>
+
+</footer>
+
+</html>

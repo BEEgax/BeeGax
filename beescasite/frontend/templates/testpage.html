@@ -1,0 +1,87 @@
+<!Doctype Html>
+<Html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<Head>
+  <link rel="shortcut icon" type="image/x-icon" href="pics/test.png" />
+  <link rel="stylesheet" href="static/css/beesca.css">
+  <Title>
+    BEESCA
+  </Title>
+</Head>
+
+<Body>
+  <header class="liste">
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html"> Home </a>
+
+        </li>
+        <li>
+          <a href="chart.html"> Chart FW 1 </a>
+        </li>
+        <li>
+          <a href="Line Chart.html"> Chart FW 2 </a>
+        </li>
+        <li>
+          <a href="login.html">Login</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <h1>
+    Welcome to BeeSca
+  </h1>
+
+  <p>
+    This is BeeSca, a web application that provides you with important informations about your Beehives
+
+  </p>
+  <p>
+  <div class="mainChart">
+    <canvas id="hiveChart" style="width:100%;max-width:700px"></canvas>
+    <script>
+      var xValues = ["December", "January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      new Chart("hiveChart", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{
+            data: [86, 114, 106, 106, 107, 111, 133, 221, 483, 547, 492, 452, 392],
+            borderColor: "red",
+            fill: false,
+            label: "Huminity"
+          }, {
+            data: [160, 170, 170, 190, 200, 270, 400, 500, 600, 650],
+            borderColor: "green",
+            fill: false,
+            label: "Weight"
+          }, {
+            data: [30, 70, 200, 200, 300, 200, 200, 100, 20, 10],
+            borderColor: "blue",
+            fill: false,
+            label: "Tempreture"
+          }]
+        },
+        options: {
+          legend: { display: true, text: "Hive 1" }
+
+
+
+        }
+      });
+    </script>
+    </p>
+  </div>
+  <script src="scripts/main.js"></script>
+
+  <li class="timebutton">
+    <a href="index2.html">Daily</a>
+  </li>
+
+</Body>
+
+</Html>

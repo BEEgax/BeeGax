@@ -1,0 +1,304 @@
+[12:03] Torbics Dávid
+
+
+
+
+{% load static %}
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+
+<head>
+
+    <title>BeeSca</title>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <link rel="icon" type="image/x-icon" href="/static/media/test.ico" />
+
+    <link rel="stylesheet" href="/static/css/charts.css">
+
+    <link rel="stylesheet" href="/static/css/carousel.css">
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> <!-- Chart.js framework -->
+
+    <script src={% static 'js/carousel.js' %}></script>
+    <script src={% static 'js/charts.js' %}></script>
+
+</head>
+
+
+
+
+<body>
+
+    <nav class="navbar">
+
+        <ul>
+
+            <li>
+
+                <img src={% static 'media/bee_logo.png' %} style="width:100%">
+
+            </li>
+
+            <li>
+
+                <a href="/index" class="navbar_button">
+
+                    <p>HIVES</p>
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="/" class="navbar_button">
+
+                    <p>CHARTS</p>
+
+                </a>
+
+            </li>
+
+            <li>
+
+                <a href="/locations" class="navbar_button">
+
+                    <p>LOCATIONS</p>
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+
+        <div class="mini_main">
+
+            <button onclick="buttonClicked()">Update</button>
+
+            <div class="carousel">
+
+                <div class="carousel__item">
+
+                    <p>
+
+                    <div class="mainChart">
+
+                        <!-- Weight chart (chart framework from Chart.js)-->
+
+                        <canvas id="hiveWeightChart"></canvas>
+
+                        <script>
+
+                            function drawChartWeight(xValues, yValues) {
+
+                                new Chart("hiveWeightChart", {
+
+
+
+
+                                    type: "line",
+
+                                    data: {
+
+                                        labels: xValues,
+
+                                        datasets: [{
+
+                                            data: yValues,
+
+                                            borderColor: "red",
+
+                                            fill: false,
+
+                                            label: "Weight"
+
+                                        }]
+
+                                    },
+
+                                    options: {
+
+                                        legend: { display: true, text: "Weight: Hive 1" }
+
+
+
+
+                                    }
+
+                                });
+
+                            }
+
+                        </script>
+
+                    </div>
+
+                    </p>
+
+                </div>
+
+                <div class="carousel__item">
+
+                    <p>
+
+                    <div class="mainChart">
+
+                        <!-- Humidity chart (chart framework from Chart.js)-->
+
+                        <canvas id="hiveHumidityChart"></canvas>
+
+                        <script>
+
+                            function drawChartHumidity(xValues, yValues) {
+
+                                new Chart("hiveHumidityChart", {
+
+
+
+
+                                    type: "line",
+
+                                    data: {
+
+                                        labels: xValues,
+
+                                        datasets: [{
+
+                                            data: yValues,
+
+                                            borderColor: "blue",
+
+                                            fill: false,
+
+                                            label: "Humidity"
+
+                                        }]
+
+                                    },
+
+                                    options: {
+
+                                        legend: { display: true, text: "Humidity: Hive 1" }
+
+
+
+
+                                    }
+
+                                });
+
+                            }
+
+                        </script>
+
+                    </div>
+
+                    </p>
+
+                </div>
+
+                <div class="carousel__item">
+
+                    <p>
+
+                    <div class="mainChart">
+
+                        <!-- Temperature chart (chart framework from Chart.js)-->
+
+                        <canvas id="hiveTempChart"></canvas>
+
+                        <script>
+
+                            function drawChartTemp(xValues, yValues) {
+
+                                new Chart("hiveTempChart", {
+
+
+
+
+                                    type: "line",
+
+                                    data: {
+
+                                        labels: xValues,
+
+                                        datasets: [{
+
+                                            data: yValues,
+
+                                            borderColor: "Green",
+
+                                            fill: false,
+
+                                            label: "Temperature"
+
+                                        }]
+
+                                    },
+
+                                    options: {
+
+                                        legend: { display: true, text: "Temperature: Hive 1" }
+
+
+
+
+                                    }
+
+                                });
+
+                            }
+
+                        </script>
+
+                    </div>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+</body>
+
+<footer>
+
+
+
+
+</footer>
+
+
+
+
+</html>
+
+
