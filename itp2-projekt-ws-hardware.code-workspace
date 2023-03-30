@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "BeeGax_beta_0.1",
+			"path": "."
+		}
+	],
+    "settings": {
+        "files.associations": {
+            "string": "cpp"
+        }
+    }
+}
