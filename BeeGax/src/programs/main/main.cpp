@@ -10,6 +10,7 @@
 
 #include "include/unix.h"
 #include "include/dht20.h"
+#include "include/webpage.h"
 
 using namespace std;
  
@@ -96,8 +97,7 @@ void setup() {
 
   setTime(time(NULL));
 
-  WiFi.begin(ssid, password); 
-  Serial.println("Connecting");
+  WiFi.begin(ssid, password);
   while(WiFi.status() != WL_CONNECTED) {     // Try connecting/Wait for connection
     delay(500);
     Serial.print(".");
@@ -105,6 +105,8 @@ void setup() {
   Serial.println("");
   Serial.print("Connected to WiFi network with IP Address: ");
   Serial.println(WiFi.localIP());
+
+  start_server();
 
   init_json();
 }
