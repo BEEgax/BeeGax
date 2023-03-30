@@ -1,0 +1,19 @@
+{
+    "data":{
+        "key":"0",
+        "measurements":[
+            {"value":"130","value_type":"1","date":20},
+            {"value":"132","value_type":"2","date":20},
+            {"value":"130","value_type":"0","date":30},
+            {"value":"132","value_type":"1","date":32},
+            {"value":"134","value_type":"2","date":32},
+            {"value":"132","value_type":"1","date":44},
+            {"value":"136","value_type":"2","date":44},
+            {"value":"130","value_type":"0","date":52},
+            {"value":"134","value_type":"1","date":56},
+            {"value":"140","value_type":"2","date":56},
+            {"value":"136","value_type":"1","date":68},
+            {"value":"142","value_type":"2","date":68}
+        ]
+    }
+}
