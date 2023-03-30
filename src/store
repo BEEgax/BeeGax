@@ -1,0 +1,25 @@
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.button, activeTab === "settings" && styles.activeButton]}
+          onPress={() => handleTabPress("settings")}
+        //   onPress={() => navigation.navigate('POPUP')} // working for second page
+        ></TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, activeTab === "diagrams" && styles.activeButton]}
+          onPress={() => handleTabPress("diagrams")}
+        ></TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            activeTab === "locations" && styles.activeButton,
+          ]}
+          onPress={() => handleTabPress("locations")}
+        ></TouchableOpacity>
+      </View>
+
+
+const [activeTab, setActiveTab] = useState("home");
+
+const handleTabPress = (tabName) => {
+  setActiveTab(tabName);
+};
