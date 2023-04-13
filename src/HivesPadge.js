@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import BeescaAPI from "./BeescaAPI";
 
 const HivesPadge = ({ navigation }) => {
@@ -17,9 +17,11 @@ const HivesPadge = ({ navigation }) => {
 
   const renderButton = (buttonText) => {
     return (
-      <View style={styles.buttonContainer}>
-        <Button title={buttonText} onPress={() => POPUPconf(buttonText)} />
-      </View>
+      <TouchableWithoutFeedback onPress={() => POPUPconf(buttonText)}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>{buttonText}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   };
 
@@ -43,10 +45,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#352208",
   },
   text: {
     fontSize: 24,
     marginBottom: 100,
+    color: "#f6f3ee",
   },
   row: {
     flexDirection: "row",
@@ -62,6 +66,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     overflow: "hidden",
+    backgroundColor: "#FCCB06",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#f6f3ee",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
