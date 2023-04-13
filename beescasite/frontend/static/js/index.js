@@ -6,8 +6,6 @@ var startDate;
 var endDate;
 
 async function getData() {
-  console.log(startDate);
-  console.log(endDate);
   const url = `http://localhost:8000/api/measurement/1/${startDate}/${endDate}`; //Server URL
   const response = await fetch(url, {
     method: "GET",
@@ -38,13 +36,12 @@ function formatTime(unixTime) {
 
 function onlyUnique(value, index, self) {
   // Checks if the id is uniqe
-
   return self.indexOf(value) === index;
 }
 
-function myFunction() {
-  const first_input = document.getElementById("from");
-  const second_input = document.getElementById("myLocalDate");
+async function drawCharts() {
+  const first_input = document.getElementById("from-date");
+  const second_input = document.getElementById("to-date");
 
   startDate = new Date(first_input.value).valueOf().toString();
   endDate = new Date(second_input.value).valueOf().toString();
@@ -52,53 +49,7 @@ function myFunction() {
   startDate = startDate.substring(0, 10);
   endDate = endDate.substring(0, 10);
 
-  console.log(startDate);
-  console.log(endDate);
-}
-
-function updateTableValues() {
-  let today = new Date();
-  let date =
-    today.getFullYear() +
-    "-" +
-    (today.getMonth() + 1).toString().padStart(2, "0") +
-    "-" +
-    today.getDate().toString().padStart(2, "0");
-  let time =
-    today.getHours().toString().padStart(2, "0") +
-    ":" +
-    today.getMinutes().toString().padStart(2, "0");
-
-  let dateTime = date + "T" + time;
-
-  let toDate = document.getElementById("myLocalDate");
-  toDate.value = dateTime.toString();
-
-  let yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  date =
-    yesterday.getFullYear() +
-    "-" +
-    (yesterday.getMonth() + 1).toString().padStart(2, "0") +
-    "-" +
-    yesterday.getDate().toString().padStart(2, "0");
-  time =
-    yesterday.getHours().toString().padStart(2, "0") +
-    ":" +
-    yesterday.getMinutes().toString().padStart(2, "0");
-
-  dateTime = date + "T" + time;
-
-  let fromDate = document.getElementById("from");
-  fromDate.value = dateTime.toString();
-}
-
-async function buttonClicked() {
-  // Updates new value inputs
-
   data = await getData();
-  console.log(data);
 
   let weigthValues = data.data.filter((x) => x.value_type == 0);
   let humidityValues = data.data.filter((x) => x.value_type == 2);
@@ -115,6 +66,43 @@ async function buttonClicked() {
   drawChartWeight(xValuesWeigth, yValuesWeigth);
   drawChartHumidity(xValuesHumidity, yValuesHumidity);
   drawChartTemp(xValuesTemp, yValuesTemp);
+}
+
+function updateTableValues() {
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  date =
+    yesterday.getFullYear() +
+    "-" +
+    (yesterday.getMonth() + 1).toString().padStart(2, "0") +
+    "-" +
+    yesterday.getDate().toString().padStart(2, "0");
+  time =
+    yesterday.getHours().toString().padStart(2, "0") +
+    ":" +
+    yesterday.getMinutes().toString().padStart(2, "0");
+
+  dateTime = date + "T" + time;
+
+  let fromDate = document.getElementById("from-date");
+  fromDate.value = dateTime.toString();
+  let today = new Date();
+  let date =
+    today.getFullYear() +
+    "-" +
+    (today.getMonth() + 1).toString().padStart(2, "0") +
+    "-" +
+    today.getDate().toString().padStart(2, "0");
+  let time =
+    today.getHours().toString().padStart(2, "0") +
+    ":" +
+    today.getMinutes().toString().padStart(2, "0");
+
+  let dateTime = date + "T" + time;
+
+  let toDate = document.getElementById("to-date");
+  toDate.value = dateTime.toString();
 }
 
 async function main() {
