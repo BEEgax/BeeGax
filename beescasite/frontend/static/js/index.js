@@ -43,8 +43,8 @@ function onlyUnique(value, index, self) {
 }
 
 function myFunction() {
-  var first_input = document.getElementById("from");
-  var second_input = document.getElementById("myLocalDate");
+  const first_input = document.getElementById("from");
+  const second_input = document.getElementById("myLocalDate");
 
   startDate = new Date(first_input.value).valueOf().toString();
   endDate = new Date(second_input.value).valueOf().toString();
@@ -57,23 +57,41 @@ function myFunction() {
 }
 
 function updateTableValues() {
-  var today = new Date();
-  var date =
+  let today = new Date();
+  let date =
     today.getFullYear() +
     "-" +
     (today.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
     today.getDate().toString().padStart(2, "0");
-  var time =
+  let time =
     today.getHours().toString().padStart(2, "0") +
     ":" +
     today.getMinutes().toString().padStart(2, "0");
-  var dateTime = date + "T" + time;
 
-  var toDate = document.getElementById("myLocalDate");
-  toDate.value = dateTime;
+  let dateTime = date + "T" + time;
 
-  document.getElementById("myLocalDate").value = dateTime.toString();
+  let toDate = document.getElementById("myLocalDate");
+  toDate.value = dateTime.toString();
+
+  let yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  date =
+    yesterday.getFullYear() +
+    "-" +
+    (yesterday.getMonth() + 1).toString().padStart(2, "0") +
+    "-" +
+    yesterday.getDate().toString().padStart(2, "0");
+  time =
+    yesterday.getHours().toString().padStart(2, "0") +
+    ":" +
+    yesterday.getMinutes().toString().padStart(2, "0");
+
+  dateTime = date + "T" + time;
+
+  let fromDate = document.getElementById("from");
+  fromDate.value = dateTime.toString();
 }
 
 async function buttonClicked() {
