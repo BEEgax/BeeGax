@@ -1,9 +1,9 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import DiagramsPage from './src/DiagramsPage.js';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import DiagramsPage from "./src/DiagramsPage.js";
 import HivesPadge from "./src/HivesPadge.js";
-import POPUP from './src/Popup.js';
+import POPUP from "./src/Popup.js";
 
 const Stack = createStackNavigator();
 
