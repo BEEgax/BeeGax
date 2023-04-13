@@ -1,97 +1,80 @@
 import React, { useState } from "react";
-import {View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import BeescaAPI from "./BeescaAPI";
-
 
 const HivesPage = ({ navigation }) => {
   const POPUPconf = (buttonText) => {
-    if (buttonText == '+'){
-      navigation.navigate('HiveSettings', {buttonID: buttonText})
-    } else {
-      navigation.navigate('HiveInfo', {buttonID: buttonText});
-      setButtonList(BeescaAPI.getHives())
-    }
-
+    navigation.navigate("POPUP", { buttonID: buttonText });
+    const newList = [];
+    buttonList.map((i) => {
+      newList.push(i);
+    });
+    newList.pop();
+    newList.push("gaxe");
+    setButtonList(BeescaAPI.getHives());
   };
   const [buttonList, setButtonList] = useState(BeescaAPI.getHives());
 
   const renderButton = (buttonText) => {
-    return <Button title={buttonText} onPress={() => POPUPconf(buttonText)} />;
-  };
     return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the hives page!</Text>
-      {buttonList.map((buttonText) => (
-      renderButton(buttonText)
-    ))}
-    </View>
-  );
-}
-
-const PopupHeader = (hive) => {
-  const navigation = useNavigation();
+      <TouchableWithoutFeedback onPress={() => POPUPconf(buttonText)}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>{buttonText}</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('HiveSettings', {buttonID: 'ich weiß nigt'})}>
-      <Text>Settings</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <Text style={styles.text}>Your Beehives:</Text>
+      <View style={styles.row}>
+        <View style={styles.column}>
+          {buttonList.slice(0, 4).map((buttonText) => renderButton(buttonText))}
+        </View>
+        <View style={styles.column}>
+          {buttonList.slice(4, 8).map((buttonText) => renderButton(buttonText))}
+        </View>
+      </View>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#352208",
   },
   text: {
     fontSize: 24,
-    marginBottom: 10,
+    marginBottom: 100,
+    color: "#f6f3ee",
   },
-  container: {
-    flex: 1,
+  row: {
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
+  column: {
+    flexDirection: "column",
+    alignItems: "center",
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: "#FFFFFF",
-    shadowOffset: {
-      width: 0,
-      height: -3,
-    },
-  },
-  button: {
-    flex: 1,
+    width: 100, // set a fixed width
+    height: 100, // set a fixed height
+    margin: 10,
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: "#FCCB06",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#BBBBBB",
-    height: "100%",
-  },
-  activeButton: {
-    backgroundColor: "#FFDB58",
   },
   buttonText: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginLeft: 5,
-  },
-  activeButtonText: {
-    color: "#FFFFFF",
+    color: "#f6f3ee",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 
-export default HivesPage;
+export default Hivespage;
