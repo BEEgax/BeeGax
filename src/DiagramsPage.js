@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, StyleSheet, Button } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 
 const DiagramsPage = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState("diagrams");
@@ -12,17 +12,17 @@ const DiagramsPage = ({ navigation }) => {
       <Text style={styles.text}>Welcome to the diagrams page!</Text>
       <Button
         title="Go to POPUP"
-        onPress={() => navigation.navigate('POPUP')}
+        onPress={() => navigation.navigate("POPUP")}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   text: {
     fontSize: 24,
