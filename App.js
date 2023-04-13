@@ -11,7 +11,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HIVES" component={HivesPadge} />
+        <Stack.Screen name="HIVES" component={HivesPadge}/>
         <Stack.Screen name="POPUP" component={POPUP} />
       </Stack.Navigator>
     </NavigationContainer>

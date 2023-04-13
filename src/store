@@ -23,3 +23,11 @@ const [activeTab, setActiveTab] = useState("home");
 const handleTabPress = (tabName) => {
   setActiveTab(tabName);
 };
+
+
+const newList = [];
+buttonList.map((i) => {
+    newList.push(i);
+});
+newList.pop()
+newList.push("gaxe")

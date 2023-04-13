@@ -6,12 +6,6 @@ import BeescaAPI from "./BeescaAPI";
 const HivesPadge = ({ navigation }) => {
   const POPUPconf = (buttonText) => {
     navigation.navigate('POPUP', {buttonID: buttonText});
-    const newList = [];
-    buttonList.map((i) => {
-        newList.push(i);
-    });
-    newList.pop()
-    newList.push("gaxe")
     setButtonList(BeescaAPI.getHives())
   };
   const [buttonList, setButtonList] = useState(BeescaAPI.getHives());

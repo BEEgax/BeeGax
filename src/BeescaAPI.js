@@ -1,10 +1,11 @@
 class BeescaAPI {
+    static hives = ["FDFDF", "Volvo", "BMW"];
+    
     static getHives(){
-        const hives = ["FDFDF", "Volvo", "BMW"];
-        while (hives.length < 8){
-            hives.push("+");
+        while (BeescaAPI.hives.length < 8){
+            BeescaAPI.hives.push("+");
         };
-        return hives
+        return BeescaAPI.hives
     }
 
     static getWeight(){
