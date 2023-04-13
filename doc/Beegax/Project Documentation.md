@@ -1,4 +1,3 @@
-# Beegax Hardware Doc
 ## Introduction:
 Beeska is an IoT project that helps beekeepers monitor their beehives remotely. The system uses various sensors to monitor the temperature, humidity, and weight of the hive. The data collected by the sensors is stored in a JSON format and sent to a web server. The beekeeper can access the data by visiting the web server, which displays the data in real-time. The system is designed to be low cost, easy to install, and user-friendly.
 

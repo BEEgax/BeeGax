@@ -4,6 +4,17 @@
 
 DHT20 DHT;
 
+/**
+ * The function checks the status of a DHT20 sensor and prints an appropriate message based on the
+ * status code.
+ * 
+ * @param status an integer value representing the status of a DHT20 sensor reading. The function
+ * check_status() takes this status as input and returns a corresponding message indicating the status
+ * of the reading. The possible values for status are defined as constants in the code, such as
+ * DHT20_OK, DHT20_ERROR
+ * 
+ * @return an integer value, either 1 or 0, depending on the case of the switch statement.
+ */
 int check_status(int status){
     switch (status)
     {
@@ -42,6 +53,9 @@ int check_status(int status){
     }
 }
 
+/**
+ * This function initializes the DHT sensor.
+ */
 void dht_start(){
     DHT.begin();
 }

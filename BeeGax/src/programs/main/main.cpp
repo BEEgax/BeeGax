@@ -1,3 +1,10 @@
+/**
+ * This is an Arduino sketch that logs data from a DHT20 sensor and posts it to a server at regular
+ * intervals.
+ * 
+ * @param data The data being transferred to the server in JSON format, containing the sensor readings
+ * and device key.
+ */
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
@@ -28,6 +35,11 @@ int measurement_timer = 0;
 int post_timer = 0;
 
 
+/**
+ * The function transfers data to a server using HTTP POST request if the device is connected to WiFi.
+ * 
+ * @param data A pointer to a character array (string) that contains the data to be transferred.
+ */
 void transfer_values(char* data) {
   	if(WiFi.status() == WL_CONNECTED){
 		Serial.print("\nData:\n\n\n\n");
@@ -41,6 +53,8 @@ void transfer_values(char* data) {
     
     	http.addHeader("Content-Type", "application/json");
 
+		http.POST(data);
+
     	http.end();  // Free resources
   	}
   	else {
@@ -48,6 +62,9 @@ void transfer_values(char* data) {
 	}
 }
 
+/**
+ * The function logs data from sensors at intervals.
+ */
 void check_measure(){  // Log the data from the sensors in intervalls
 	if (measurement_timer >= measurement_intervall){
 		delay(2000);
@@ -62,6 +79,10 @@ void check_measure(){  // Log the data from the sensors in intervalls
 	}
 }
 
+/**
+ * The function checks if it's time to post data to the server and if so, transfers the values in JSON
+ * format.
+ */
 void check_post(){  // Post the Data to the server in intervalls
 	if (post_timer >= post_intervall){
 		transfer_values((char*)get_json(KEY).c_str());
@@ -72,6 +93,10 @@ void check_post(){  // Post the Data to the server in intervalls
 	}
 }
 
+/**
+ * The function updates the measurement and post intervals based on the values in the configuration and
+ * prints them if they have changed.
+ */
 void update_config(){
 	int m_prev = measurement_intervall;
 	int p_prev = post_intervall;
