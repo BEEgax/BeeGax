@@ -1,5 +1,5 @@
 class BeescaAPI {
-    static hives = ["FDFDF", "Volvo", "BMW"];
+    static hives = ["Hive1", "Hive2", "Hive3", "Hive5"];
     
     static getHives(){
         while (BeescaAPI.hives.length < 8){

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import {View, Text, StyleSheet, Button } from 'react-native';
+import {View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import BeescaAPI from "./BeescaAPI";
 
 
-const HivesPadge = ({ navigation }) => {
+const HivesPage = ({ navigation }) => {
   const POPUPconf = (buttonText) => {
-    navigation.navigate('POPUP', {buttonID: buttonText});
-    setButtonList(BeescaAPI.getHives())
+    if (buttonText == '+'){
+      navigation.navigate('HiveSettings', {buttonID: buttonText})
+    } else {
+      navigation.navigate('HiveInfo', {buttonID: buttonText});
+      setButtonList(BeescaAPI.getHives())
+    }
+
   };
   const [buttonList, setButtonList] = useState(BeescaAPI.getHives());
 
@@ -15,11 +20,21 @@ const HivesPadge = ({ navigation }) => {
   };
     return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the settings page!</Text>
+      <Text style={styles.text}>Welcome to the hives page!</Text>
       {buttonList.map((buttonText) => (
       renderButton(buttonText)
     ))}
     </View>
+  );
+}
+
+const PopupHeader = (hive) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate('HiveSettings', {buttonID: 'ich weiß nigt'})}>
+      <Text>Settings</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -79,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HivesPadge;
+export default HivesPage;
