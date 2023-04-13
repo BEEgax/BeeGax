@@ -2,80 +2,143 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>BeeSca</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="icon" type="image/x-icon" href="/static/media/test.ico" />
     <link rel="stylesheet" href={% static "../static/css/style.css" %}>
     <link rel="icon" type="image/x-icon" href="../static/images/bwwhot.ico" />
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar">
-        <ul>
-            <li>
-                <img src={% static "/media/bee_logo.png" %} style="width:100%">
-            </li>
-            <li>
-                <a href="/" class="navbar_button">
-                    <i class="fa fa-home w3-xxlarge"></i>
-                    <p>HIVES</p>
-                </a>
-            </li>
-            <li>
-                <a href="./functionalCharts" class="navbar_button">
-                    <i class="fa fa-user w3-xxlarge"></i>
-                    <p>CHARTS</p>
-                </a>
-            </li>
-            <li>
-                <a href="./locations" class="navbar_button">
-                    <i class="fa fa-eye w3-xxlarge"></i>
-                    <p>LOCATIONS</p>
-                </a>
-            </li>
-        </ul>
+      <ul>
+        <li><img src={% static "/media/bee_logo.png" %} style="width:100%"></li>
+        <li>
+          <a href="/" class="navbar_button">
+            <i class="fa fa-home w3-xxlarge"></i>
+            <p>HIVES</p>
+          </a>
+        </li>
+        <li>
+          <a href="./charts" class="navbar_button">
+            <i class="fa fa-user w3-xxlarge"></i>
+            <p>CHARTS</p>
+          </a>
+        </li>
+        <li>
+          <a href="./locations" class="navbar_button">
+            <i class="fa fa-eye w3-xxlarge"></i>
+            <p>LOCATIONS</p>
+          </a>
+        </li>
+      </ul>
     </nav>
     <main>
-        <div class="mini_main">
-            <table id="hives_table">
-                <tr>
-                    <td><button id="button1" class="add_hive_button" type="button" onclick="openPopup(1)">+</button>
-                    </td>
-                    <td><button id="button2" class="add_hive_button" type="button" onclick="openPopup(2)">+</button>
-                    </td>
-                    <td><button id="button3" class="add_hive_button" type="button" onclick="openPopup(3)">+</button>
-                    </td>
-                    <td><button id="button4" class="add_hive_button" type="button" onclick="openPopup(4)">+</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button id="button5" class="add_hive_button" type="button" onclick="openPopup(5)">+</button>
-                    </td>
-                    <td><button id="button6" class="add_hive_button" type="button" onclick="openPopup(6)">+</button>
-                    </td>
-                    <td><button id="button7" class="add_hive_button" type="button" onclick="openPopup(7)">+</button>
-                    </td>
-                    <td><button id="button8" class="add_hive_button" type="button" onclick="openPopup(8)">+</button>
-                    </td>
-                </tr>
-            </table>
-            <div id="addbeehive_popup_container"></div>
-        </div>
+      <div class="mini_main">
+        <table id="hives_table">
+          <tr>
+            <td>
+              <button
+                id="button1"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(1)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button2"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(2)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button3"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(3)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button4"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(4)"
+              >
+                +
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button
+                id="button5"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(5)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button6"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(6)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button7"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(7)"
+              >
+                +
+              </button>
+            </td>
+            <td>
+              <button
+                id="button8"
+                class="add_hive_button"
+                type="button"
+                onclick="openPopup(8)"
+              >
+                +
+              </button>
+            </td>
+          </tr>
+        </table>
+        <div id="addbeehive_popup_container"></div>
+      </div>
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let popupContainer = document.getElementById("addbeehive_popup_container");
+      document.addEventListener("DOMContentLoaded", function () {
+        let popupContainer = document.getElementById(
+          "addbeehive_popup_container"
+        );
 
-            for (let i = 1; i <= 8; i++) {
-                let popup = document.createElement("div");
-                popup.classList.add("addbehive_popup");
-                popup.innerHTML = `
+        for (let i = 1; i <= 8; i++) {
+          let popup = document.createElement("div");
+          popup.classList.add("addbehive_popup");
+          popup.innerHTML = `
                         <p>Edit Beehive ${i}</p>
                         <form>
                             <label for="hivename_${i}">Hive Name:</label>
@@ -91,24 +154,23 @@
                             <button type="save_button" onclick="closePopup(${i})">Save</button>
                         </form>
                     `;
-                popupContainer.appendChild(popup);
-            }
-        });
-
-        function openPopup(index) {
-            let popup = document.getElementsByClassName("addbehive_popup")[index - 1];
-            popup.classList.add("open-addbeehive_popup");
+          popupContainer.appendChild(popup);
         }
+      });
 
-        function closePopup(index) {
-            let popup = document.getElementsByClassName("addbehive_popup")[index - 1];
-            popup.classList.remove("open-addbeehive_popup");
-        }
+      function openPopup(index) {
+        let popup =
+          document.getElementsByClassName("addbehive_popup")[index - 1];
+        popup.classList.add("open-addbeehive_popup");
+      }
+
+      function closePopup(index) {
+        let popup =
+          document.getElementsByClassName("addbehive_popup")[index - 1];
+        popup.classList.remove("open-addbeehive_popup");
+      }
     </script>
-</body>
+  </body>
 
-<footer>
-
-</footer>
-
+  <footer></footer>
 </html>

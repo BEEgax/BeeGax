@@ -25,6 +25,6 @@ urlpatterns = [
     path('api/measurement/<int:hive_id>', api_views.measurement_hive),
     path('api/measurement/<int:hive_id>/<int:starttime>/<int:endtime>', api_views.measurement_hive_timeline),
     path('', frontend_views.index),
-    path('functionalCharts', frontend_views.functional_charts),
+    path('charts', frontend_views.charts),
     path('locations', frontend_views.locations),
 ]
