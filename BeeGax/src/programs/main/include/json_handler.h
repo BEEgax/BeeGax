@@ -4,7 +4,7 @@
 
 void start_time();
 void init_json(String KEY);
-String get_json();
+String get_json(String KEY);
 void log_data(int data_type, float content);
 
 #endif

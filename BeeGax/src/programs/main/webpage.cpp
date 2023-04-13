@@ -2,6 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
+#include <map>
 
 #include "include/webpage.h"
 
@@ -11,6 +12,8 @@ AsyncWebServer server(80);
 const char* PARAM_INPUT_1 = "input_1";
 const char* PARAM_INPUT_2 = "input_2";
 
+int temp_measure = 0;
+int temp_post = 0;
 
 const char index_html_temp[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html><head>
@@ -24,10 +27,10 @@ const char index_html_temp[] PROGMEM = R"rawliteral(
     <h2>Hardware Key:</h2>
     <h3> {fdsa1111} </h3>
     <form action="/get">
-    Sendeintervall (Minuten): <input type="text" name="input_1">
+    Messintervall (Sekunden): <input type="text" name="input_1">
     <br>
     <br>
-    Messintervall (Sekunden): <input type="text" name="input_2">
+    Postintervall (Minuten): <input type="text" name="input_2">
     <br>
     <br>
     <input type="submit" value="Submit">
@@ -52,38 +55,46 @@ void start_server() {
 
 
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
-    String inputMessage1;
-    String inputParam1;
-    String inputMessage2;
-    String inputParam2;
+    String measure_intervall_msg;
+    String measure_intervall_inp;
+    String post_intervall_msg;
+    String post_intervall_inp;
 
     if (request->hasParam(PARAM_INPUT_1)) {
-      inputMessage1 = request->getParam(PARAM_INPUT_1)->value();
-      inputParam1 = PARAM_INPUT_1;
+      measure_intervall_msg = request->getParam(PARAM_INPUT_1)->value();
+      measure_intervall_inp = PARAM_INPUT_1;
     }
 
     if (request->hasParam(PARAM_INPUT_2)) {
-      inputMessage2 = request->getParam(PARAM_INPUT_2)->value();
-      inputParam2 = PARAM_INPUT_2;
+      post_intervall_msg = request->getParam(PARAM_INPUT_2)->value();
+      post_intervall_inp = PARAM_INPUT_2;
     }
     if (!request->hasParam(PARAM_INPUT_1) && request->hasParam(PARAM_INPUT_2)) {
-        inputMessage1 = "No message sent";
-        inputParam1 = "none";
-        inputMessage2 = "No message sent";
-        inputParam2 = "none";
+        measure_intervall_msg = "No message sent";
+        measure_intervall_inp = "none";
+        post_intervall_msg = "No message sent";
+        post_intervall_inp = "none";
     }
     request->send(200, "text/html", "HTTP GET request sent to your ESP on input field (" 
-                                     + inputParam1 + ", " + inputParam2 + ") with value: " + inputMessage1 + ", "+ inputMessage2 +
-                                     "<br><a href=\"/\">Return to Home Page</a>");
+                  + measure_intervall_inp + ", " + post_intervall_inp + ") with value: " + measure_intervall_msg + ", "+ post_intervall_msg +
+                  "<br><a href=\"/\">Return to Home Page</a>");
+    temp_measure = measure_intervall_msg.toInt();
+    temp_post = post_intervall_msg.toInt();
   });
-    
-    char a[] = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (int i=0;i<=7;i++) {
-        key += a[rand()%36];
-    }
-        
+  char a[] = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-    server.onNotFound(notFound);
-    server.begin();
+  for (int i=0;i<=7;i++) {
+      key += a[rand()%36];
+  }
+
+  
+
+  server.onNotFound(notFound);
+  server.begin();
+}
+
+std::map<String, int> get_config(){
+    std::map<String, int> m{{"MEASURE", temp_measure}, {"POST", temp_post}};
+    return m;
 }
