@@ -2,6 +2,13 @@ class BeescaAPI {
     static hives = ["Hive1", "Hive2", "Hive3", "Hive5"];
     
     static getHives(){
+        fetch("http://167.235.150.74:8000/api/hive/")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => console.error(error));
+    
         while (BeescaAPI.hives.length < 8){
             BeescaAPI.hives.push("+");
         };

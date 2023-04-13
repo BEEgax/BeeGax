@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import BeescaAPI from "./BeescaAPI";
 
 
 const HivesPage = ({ navigation }) => {
+  useEffect(() => {
+    setButtonList(BeescaAPI.getHives());
+    console.log("asd");
+  }, []);
   const POPUPconf = (buttonText) => {
     if (buttonText == '+'){
       navigation.navigate('HiveSettings', {buttonID: buttonText})
     } else {
       navigation.navigate('HiveInfo', {buttonID: buttonText});
-      setButtonList(BeescaAPI.getHives())
     }
 
   };
