@@ -9,7 +9,6 @@ const HivesPage = ({ navigation }) => {
       navigation.navigate('HiveSettings', {buttonID: buttonText})
     } else {
       navigation.navigate('HiveInfo', {buttonID: buttonText});
-      setButtonList(BeescaAPI.getHives())
     }
 
   };
@@ -28,15 +27,6 @@ const HivesPage = ({ navigation }) => {
   );
 }
 
-const PopupHeader = (hive) => {
-  const navigation = useNavigation();
-
-  return (
-    <TouchableOpacity onPress={() => navigation.navigate('HiveSettings', {buttonID: 'ich weiß nigt'})}>
-      <Text>Settings</Text>
-    </TouchableOpacity>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
