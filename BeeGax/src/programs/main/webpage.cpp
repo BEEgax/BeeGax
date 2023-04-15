@@ -82,14 +82,6 @@ void start_server() {
     temp_post = post_intervall_msg.toInt();
   });
 
-  char a[] = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (int i=0;i<=7;i++) {
-      key += a[rand()%36];
-  }
-
-  
-
   server.onNotFound(notFound);
   server.begin();
 }
