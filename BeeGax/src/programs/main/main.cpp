@@ -20,8 +20,8 @@ WiFiClientSecure wifiClient;
 const String KEY = "KEY5";
 
 // WLAN-Daten
-const char* ssid = "HTL-Weiz";
-const char* password = "HTL-Weiz";
+const char* ssid = "GloeWLAN";
+const char* password = "MargitHerwig!2001";
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 
 // Measurement Intervall
