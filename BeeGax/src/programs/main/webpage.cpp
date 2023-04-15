@@ -95,6 +95,6 @@ void start_server() {
 }
 
 std::map<String, int> get_config(){
-    std::map<String, int> m{{"MEASURE", temp_measure}, {"POST", temp_post}};
+    std::map<String, int> m{{"MEASURE", temp_measure}, {"POST", temp_post * 60}};
     return m;
 }

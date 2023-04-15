@@ -17,7 +17,7 @@ HTTPClient sender;
 WiFiClientSecure wifiClient;
 
 // Device Key
-const String KEY = "KEY5";
+String KEY = "KEY7";
 
 // WLAN-Daten
 const char* ssid = "GloeWLAN";
