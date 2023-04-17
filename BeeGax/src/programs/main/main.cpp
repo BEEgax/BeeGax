@@ -20,8 +20,8 @@ WiFiClientSecure wifiClient;
 String KEY = "KEY7";
 
 // WLAN-Daten
-const char* ssid = "GloeWLAN";
-const char* password = "MargitHerwig!2001";
+const char* ssid = "Walter wlan-Verstärker";
+const char* password = "walter11";
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 
 // Measurement Intervall
