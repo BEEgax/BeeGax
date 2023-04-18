@@ -11,9 +11,11 @@ AsyncWebServer server(80);
 
 const char* PARAM_INPUT_1 = "input_1";
 const char* PARAM_INPUT_2 = "input_2";
+const char* PARAM_INPUT_3 = "input_3";
 
 int temp_measure = 0;
 int temp_post = 0;
+String key = "";
 
 const char index_html_temp[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html><head>
@@ -24,9 +26,9 @@ const char index_html_temp[] PROGMEM = R"rawliteral(
     <meta name="viewport" content="width=device-width, initial-scale=1">
     </head><body>
     <h1>Beeska Configuration Side</h1>
-    <h2>Hardware Key:</h2>
-    <h3> {fdsa1111} </h3>
-    <form action="/get">
+    Hardware Key: <input type="text" name="input_3">
+    <br>
+    <br>
     Messintervall (Sekunden): <input type="text" name="input_1">
     <br>
     <br>
@@ -41,8 +43,6 @@ const char index_html_temp[] PROGMEM = R"rawliteral(
 void notFound(AsyncWebServerRequest *request) {
     request->send(404, "text/plain", "Not found");
 }
-
-String key = "";
 
 void start_server() {
   // Send web page with input fields to client
@@ -82,19 +82,11 @@ void start_server() {
     temp_post = post_intervall_msg.toInt();
   });
 
-  char a[] = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-  for (int i=0;i<=7;i++) {
-      key += a[rand()%36];
-  }
-
-  
-
   server.onNotFound(notFound);
   server.begin();
 }
 
 std::map<String, int> get_config(){
-    std::map<String, int> m{{"MEASURE", temp_measure}, {"POST", temp_post}};
+    std::map<String, int> m{{"MEASURE", temp_measure}, {"POST", temp_post * 60}};
     return m;
 }
