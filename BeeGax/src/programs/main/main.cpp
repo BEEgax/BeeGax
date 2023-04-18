@@ -5,19 +5,23 @@
  * @param data The data being transferred to the server in JSON format, containing the sensor readings
  * and device key.
  */
+#include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
 #include "include/dht20.h"
 #include "include/webpage.h"
 #include "include/json_handler.h"
-#include "include/wifi.h"
 
-
+ 
 HTTPClient sender;
+WiFiClientSecure wifiClient;
 
 // Device Key
-String KEY = "KEY7";
+const String KEY = "KEY5";
 
+// WLAN-Daten
+const char* ssid = "HTL-Weiz";
+const char* password = "HTL-Weiz";
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 
 // Measurement Intervall
@@ -37,14 +41,13 @@ int post_timer = 0;
  * @param data A pointer to a character array (string) that contains the data to be transferred.
  */
 void transfer_values(char* data) {
-  	if(get_status() == WL_CONNECTED){
+  	if(WiFi.status() == WL_CONNECTED){
 		Serial.print("\nData:\n\n\n\n");
 		Serial.print(data);
 		Serial.print("\n\n\n\n");
 		WiFiClient client;                    // Create wifi client
 		HTTPClient http;                      // Create http client
-	
-											// Your Domain name with URL path or IP address with path
+
 		http.begin(client, serverName);       // Begin client to server connection
     
     	http.addHeader("Content-Type", "application/json");
@@ -96,10 +99,10 @@ void check_post(){  // Post the Data to the server in intervalls
 void update_config(){
 	int m_prev = measurement_intervall;
 	int p_prev = post_intervall;
-	if (m_prev != get_config()["MEASURE"] ||
-		p_prev != get_config()["POST"]){
-			measurement_intervall = get_config()["MEASURE"];
-			post_intervall = get_config()["POST"];
+	measurement_intervall = get_config()["MEASURE"];
+	post_intervall = get_config()["POST"];
+	if (m_prev != measurement_intervall ||
+		p_prev != post_intervall){
 			Serial.print("\n\nm_int: ");
 			Serial.print(measurement_intervall);
 			Serial.print("\np_int: ");
@@ -112,7 +115,15 @@ void setup() {
 	dht_start();  // start the dht20 sensor
 	Serial.begin(115200);
 
-	connect();  // connect to the wifi
+	WiFi.begin(ssid, password);  // start connecting to WIFI
+	while(WiFi.status() != WL_CONNECTED) {  // Try connecting/Wait for connection
+		delay(500);
+		Serial.print(".");
+	}
+	Serial.println("");
+	Serial.print("Connected to WiFi network with IP Address: ");
+	Serial.println(WiFi.localIP());
+
 	update_config();  // update the timer limits
 	start_time();  // connect to timeserver 
 	start_server();  // start webserver for configuration
