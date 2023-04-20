@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import BeescaAPI from "./BeescaAPI";
 
 
 const HivesPage = ({ navigation }) => {
+  useEffect(() => {
+    BeescaAPI.getHives().then((hives) => {
+      console.log(hives);
+      setButtonList(hives);
+    });
+  }, []);
+
   const POPUPconf = (buttonText) => {
     if (buttonText == '+'){
       navigation.navigate('HiveSettings', {buttonID: buttonText})
@@ -12,17 +19,19 @@ const HivesPage = ({ navigation }) => {
     }
 
   };
-  const [buttonList, setButtonList] = useState(BeescaAPI.getHives());
+  const [buttonList, setButtonList] = useState([]);
 
-  const renderButton = (buttonText) => {
-    return <Button title={buttonText} onPress={() => POPUPconf(buttonText)} />;
+  const renderButton = (buttonText, i) => {
+    return <Button key={i} title={buttonText} onPress={() => POPUPconf(buttonText)} />;
   };
-    return (
+
+  return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to the hives page!</Text>
-      {buttonList.map((buttonText) => (
-      renderButton(buttonText)
-    ))}
+      {buttonList.map((buttonText, i) => (
+        renderButton(buttonText, i)
+      ))
+      }
     </View>
   );
 }

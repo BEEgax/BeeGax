@@ -3,11 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-nati
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
 } from "react-native-chart-kit";
 import { Svg, RNSVGSvgAndroid } from 'react-native-svg';
 
@@ -35,30 +30,30 @@ const HiveInfo = ({route, navigation}) => {
 const Chart = () => {
  return(
   <View>
-      <Text>Bezier Line Chart</Text>
+      <Text>Hive Weight Chart</Text>
       <LineChart
         data={{
           labels: ["January", "February", "March", "April", "May", "June"],
           datasets: [
             {
               data: [
+                0,
+                2.5,
+                5,
+                7.5,
                 Math.random() * 100,
                 Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
               ]
             }
           ]
         }}
         width={Dimensions.get("window").width} // from react-native
         height={220}
-        yAxisLabel="$"
-        yAxisSuffix="k"
+        // yAxisLabel="$"
+        yAxisSuffix=" kg"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#e26a00",
+          backgroundColor: "#315e6b",
           backgroundGradientFrom: "#fb8c00",
           backgroundGradientTo: "#ffa726",
           decimalPlaces: 2, // optional, defaults to 2dp
@@ -68,9 +63,9 @@ const Chart = () => {
             borderRadius: 16
           },
           propsForDots: {
-            r: "6",
+            r: "5",
             strokeWidth: "2",
-            stroke: "#ffa726"
+            stroke: "#315e6b"
           }
         }}
         bezier

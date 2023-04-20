@@ -1,29 +1,41 @@
 class BeescaAPI {
-    static hives = ["Hive1", "Hive2", "Hive3", "Hive5"];
-    
-    static getHives(){
-        while (BeescaAPI.hives.length < 8){
-            BeescaAPI.hives.push("+");
+    static data = []
+
+    static async getHives(){
+        
+        const data = await fetch("http://167.235.150.74:8000/api/hive/")
+            .then((response) => response.json())
+            .catch((error) => console.error(error));
+        this.data = data;
+
+        const hives = data.data.map((hive) => hive.hardware_api_key);
+        
+        while (hives.length < 8){
+            hives.push("+");
         };
-        return BeescaAPI.hives
+
+        return hives
     }
 
-    static getWeight(){
-        const weight = 0.0
-        return weight
+    static async getWeight(hive_key){
+        const data = await fetch("http://167.235.150.74:8000/api/measurement/")
+            .then((response) => response.json())
+            .catch((error) => console.error(error));
+            return false;
+        
     }
 
-    static getTemperature(){
+    static getTemperature(hive){
         const temperature = 0.0
         return temperature
     }
 
-    static getHumidity(){
+    static getHumidity(hive){
         const humidity = 0.0
         return humidity
     }
 
-    static getLocation(){
+    static getLocation(hive){
         const location = ""
         return location
     }
