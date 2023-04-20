@@ -10,6 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 notused/
+venv
 
 # macOS
 .DS_Store
