@@ -15,7 +15,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="HivesPadge"
+          name="HivesPage"
           component={HivesPage}
           options={{
             title: "Hives",
