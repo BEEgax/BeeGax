@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    width: 100, // set a fixed width
-    height: 100, // set a fixed height
+    width: 100,
+    height: 100,
     margin: 10,
     borderRadius: 10,
     overflow: "hidden",
