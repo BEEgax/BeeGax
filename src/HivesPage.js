@@ -6,30 +6,29 @@ import BeescaAPI from "./BeescaAPI";
 const HivesPage = ({ navigation }) => {
   useEffect(() => {
     BeescaAPI.getHives().then((hives) => {
-      console.log(hives);
       setButtonList(hives);
     });
   }, []);
 
-  const POPUPconf = (buttonText) => {
+  const POPUPconf = (buttonText, key) => {
     if (buttonText == '+'){
-      navigation.navigate('HiveSettings', {buttonID: buttonText})
+      navigation.navigate('HiveSettings', {buttonID: key})
     } else {
-      navigation.navigate('HiveInfo', {buttonID: buttonText});
+      navigation.navigate('HiveInfo', {buttonID: key});
     }
 
   };
   const [buttonList, setButtonList] = useState([]);
 
   const renderButton = (buttonText, i) => {
-    return <Button key={i} title={buttonText} onPress={() => POPUPconf(buttonText)} />;
+    return <Button key={i} title={buttonText} onPress={() => POPUPconf(buttonText, i)} />;
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to the hives page!</Text>
-      {buttonList.map((buttonText, i) => (
-        renderButton(buttonText, i)
+      {buttonList.map((hive) => (
+        renderButton(hive.hardware_api_key, hive.id)
       ))
       }
     </View>

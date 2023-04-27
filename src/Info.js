@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   LineChart,
 } from "react-native-chart-kit";
 import { Svg, RNSVGSvgAndroid } from 'react-native-svg';
+import BeescaAPI from './BeescaAPI';
 
 const HiveInfo = ({route, navigation}) => {
   const {buttonID} = route.params;
@@ -22,28 +23,31 @@ const HiveInfo = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{buttonID}</Text>
-      <Chart></Chart>
+      <Chart buttonID={buttonID}></Chart>
     </View>
   );
 }
 
-const Chart = () => {
+const Chart = ({buttonID}) => {
+  const [label, setLabel] = useState([0]);
+  const [data, setData] = useState([0]); 
+  
+  useEffect(() => {
+    BeescaAPI.setMeasurements(buttonID).then(() => {
+      setLabel(BeescaAPI.time);
+      setData(BeescaAPI.weights);
+    });
+  }, []);
+
  return(
   <View>
       <Text>Hive Weight Chart</Text>
       <LineChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: label,
           datasets: [
             {
-              data: [
-                0,
-                2.5,
-                5,
-                7.5,
-                Math.random() * 100,
-                Math.random() * 100,
-              ]
+              data: data
             }
           ]
         }}

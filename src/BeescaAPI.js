@@ -1,38 +1,56 @@
 class BeescaAPI {
-    static data = []
+    static hives = [];
+    static measurements = [];
+    static weights = [];
+    static temperatures = [];
+    static humidities = [];
+    static time = [];
 
     static async getHives(){
         
         const data = await fetch("http://167.235.150.74:8000/api/hive/")
             .then((response) => response.json())
             .catch((error) => console.error(error));
-        this.data = data;
+            this.hives = data.data;
+            
+            let i = 0;
+        while (this.hives.length < 8) {
+            this.hives.push({id: `P${i}`, hardware_api_key: "+", location:""});
+            i++;
+        }
 
-        const hives = data.data.map((hive) => hive.hardware_api_key);
+        return this.hives;
+    }
+
+    static async setMeasurements(hive_id) {
+        const data = await fetch(`http://167.235.150.74:8000/api/measurement/${hive_id}/1680769800/1682587200`)
+        .then((response) => response.json())
+        .catch((error) => console.error(error));
         
-        while (hives.length < 8){
-            hives.push("+");
-        };
-
-        return hives
-    }
-
-    static async getWeight(hive_key){
-        const data = await fetch("http://167.235.150.74:8000/api/measurement/")
-            .then((response) => response.json())
-            .catch((error) => console.error(error));
-            return false;
+        console.log("asd");
+        console.log(data);
         
-    }
+        this.measurements = data.data;
 
-    static getTemperature(hive){
-        const temperature = 0.0
-        return temperature
-    }
+        this.time = [];
+        this.weights = [];
+        this.temperatures = [];
+        this.humidities = [];
 
-    static getHumidity(hive){
-        const humidity = 0.0
-        return humidity
+        data.data.map((measurement) => {
+            switch (measurement.value_type) {
+                case 0:
+                    this.weights.push(measurement.value);
+                    break;
+                case 1:
+                    this.temperatures.push(measurement.value);
+                    break;
+                case 2:
+                    this.humidities.push(measurement.value);
+                    break;
+            };
+            this.time.push(measurement.date);
+        });
     }
 
     static getLocation(hive){
