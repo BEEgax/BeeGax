@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { Component } from 'react/cjs/react.production.min';
+import BeescaAPI from './BeescaAPI';
 
 const HiveSettings = ({route}) => {
   const {buttonID} = route.params
-  if (buttonID != '+'){
+  if (buttonID[0] != "P"){
+    // get Hive by Id
+    // parse correct props to settings screen
     return (
       <View><SettingsScreen Name={buttonID} Location="none" Key="banana"></SettingsScreen></View> 
     );
@@ -17,13 +20,16 @@ const HiveSettings = ({route}) => {
 }
 
 const SettingsScreen = (props) => {
+  console.log(props);
   const {Name, Location, Key} = props;
-  const [hiveName, setHiveName] = useState(Name);
+  const [hiveName, setHiveName] = useState(Name.toString());
   const [location, setLocation] = useState(Location);
   const [apiKey, setApiKey] = useState(Key);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // save the inputs
+    const hive = {name: hiveName, location: location, hardware_api_key: apiKey};
+    await BeescaAPI.postHive(hive);
     console.log(`Hive Name: ${hiveName}, Location: ${location}, API Key: ${apiKey}`);
   };
 

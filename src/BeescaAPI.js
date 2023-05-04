@@ -17,7 +17,7 @@ class BeescaAPI {
             
             let i = 0;
         while (this.hives.length < 8) {
-            this.hives.push({id: `P${i}`, hardware_api_key: "+", location:""});
+            this.hives.push({id: `P${i}`, hardware_api_key: "+", location:"", name: ""});
             i++;
         }
 
@@ -28,8 +28,7 @@ class BeescaAPI {
         const data = await fetch(`http://167.235.150.74:8000/api/measurement/${hive_id}/1670669800/1682587200`)
         .then((response) => response.json())
         .catch((error) => console.error(error));
-        
-        // console.log("asd");
+
         // console.log(data);
         
         this.measurements = data.data
@@ -61,6 +60,29 @@ class BeescaAPI {
         this.timeTemp = this.shortenList(this.timeTemp)
     }
 
+    static async postHive(hive) {
+        /*
+        {
+            name: string,
+            location: string,
+            hardware_api_key: string
+        }
+        */
+        const response = await fetch("http://167.235.150.74:8000/api/hive/", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(hive)
+        });
+
+        await this.getHives();
+    }
+
+    static async patchHive(hive) {
+        console.log("***********++++++++++++**********")
+    }
+
     static getLocation(hive){
         const location = ""
         return location
@@ -68,14 +90,10 @@ class BeescaAPI {
 
     static shortenList(list){
         let tempList = []
-        let a = list.length / 4;
-        tempList.push(list[a]);
-        console.log(a)
-        tempList.push(list[a*2]);
-        tempList.push(list[a*3]);
-        tempList.push(list[a*4]);
-
-
+        // tempList.push("")
+        tempList.push("                     " + list[0]);
+        tempList.push("")
+        tempList.push("              " + list[list.length-1]);
         return tempList
     }
 
@@ -88,10 +106,9 @@ class BeescaAPI {
         var hour = a.getHours();
         var min = a.getMinutes();
         var sec = a.getSeconds();
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        var time = date + ' ' + month + ' ' + year + ' ' + hour; // + ':' + min + ':' + sec ;
         return time;
       }
-
 }
 
 export default BeescaAPI;

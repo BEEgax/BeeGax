@@ -62,7 +62,7 @@ const Chart = ({buttonID}) => {
         width={Dimensions.get("window").width} // from react-native
         height={220}
         // yAxisLabel="$"
-        yAxisSuffix=" kg"
+        yAxisSuffix="kg"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#315e6b",
@@ -89,7 +89,7 @@ const Chart = ({buttonID}) => {
       <Text>Hive Temperatures Chart</Text>
       <LineChart
         data={{
-          labels: tempData,
+          labels: tempLabel,
           datasets: [
             {
               data: tempData
@@ -99,7 +99,7 @@ const Chart = ({buttonID}) => {
         width={Dimensions.get("window").width} // from react-native
         height={220}
         // yAxisLabel="$"
-        yAxisSuffix=" kg"
+        yAxisSuffix="°C"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#315e6b",
@@ -137,7 +137,7 @@ const Chart = ({buttonID}) => {
         width={Dimensions.get("window").width} // from react-native
         height={220}
         // yAxisLabel="$"
-        yAxisSuffix=" kg"
+        yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#315e6b",
@@ -161,7 +161,6 @@ const Chart = ({buttonID}) => {
           borderRadius: 16
         }}
       />
-
     </View>
  )
 }
