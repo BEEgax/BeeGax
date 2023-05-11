@@ -30,7 +30,6 @@ String get_json(String KEY){
 }
 
 void log_data(int data_type, float content){
-    uint32_t unix = now();
     json_entry = json_data.createNestedObject();
     json_entry["value"] = std::to_string(content);
     json_entry["value_type"] = std::to_string(data_type);
