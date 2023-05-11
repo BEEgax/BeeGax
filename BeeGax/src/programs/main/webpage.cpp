@@ -11,7 +11,6 @@ AsyncWebServer server(80);
 
 const char* PARAM_INPUT_1 = "input_1";
 const char* PARAM_INPUT_2 = "input_2";
-const char* PARAM_INPUT_3 = "input_3";
 
 int temp_measure = 0;
 int temp_post = 0;

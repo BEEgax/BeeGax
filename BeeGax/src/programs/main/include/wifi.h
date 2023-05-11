@@ -5,7 +5,7 @@
 #include <ESP8266WiFi.h>
 
 
-void connect();
+void connect_to_WiFi();
 String* get_availible_wifis();
 wl_status_t get_status();
 

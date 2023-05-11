@@ -3,12 +3,6 @@
 
 #include "include/wifi.h"
 
-WiFiClientSecure wifiClient;
-
-// WLAN-Daten
-const char* ssid = "";
-const char* password = "";
-
 WiFiManager wifiManager;
 
 void connect_to_WiFi(){
