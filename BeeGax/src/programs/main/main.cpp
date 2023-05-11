@@ -4,21 +4,16 @@
 #include "include/webpage.h"
 #include "include/json_handler.h"
 #include "include/wifi.h"
+#include "include/config.h"
 
  
 HTTPClient sender;
+Config mainConf;
 
 // Device Key
 const String KEY = "KEY5";
 
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
-
-// Measurement Intervall
-int measurement_intervall = 20;
-
-// Post Intervall
-int post_intervall = 60;
-
 
 int measurement_timer = 0;
 int post_timer = 0;
@@ -46,7 +41,7 @@ void transfer_values(char* data) {
 }
 
 void check_measure(){  // Log the data from the sensors in intervalls
-	if (measurement_timer >= measurement_intervall){
+	if (measurement_timer >= mainConf.getMeasureInterval()){
 		delay(2000);
 		log_data(0, get_humidity());
 		delay(2000);
@@ -60,7 +55,7 @@ void check_measure(){  // Log the data from the sensors in intervalls
 }
 
 void check_post(){  // Post the Data to the server in intervalls
-	if (post_timer >= post_intervall){
+	if (post_timer >= mainConf.getPostInterval()){
 		transfer_values((char*)get_json(KEY).c_str());
 		post_timer = 0;
 	}
@@ -70,17 +65,12 @@ void check_post(){  // Post the Data to the server in intervalls
 }
 
 void update_config(){
-	int m_prev = measurement_intervall;
-	int p_prev = post_intervall;
-	measurement_intervall = get_config()["MEASURE"];
-	post_intervall = get_config()["POST"];
-	if (m_prev != measurement_intervall ||
-		p_prev != post_intervall){
-			Serial.print("\n\nm_int: ");
-			Serial.print(measurement_intervall);
-			Serial.print("\np_int: ");
-			Serial.print(post_intervall);
-			Serial.print("\n");
+	int mesu = get_config()["MEASURE"];
+	int post = get_config()["POST"];
+	if (mesu != mainConf.getMeasureInterval() ||
+			post != mainConf.getPostInterval()){
+		mainConf.setMeasureInterval(mesu);
+		mainConf.setPostInterval(post);
 	}
 }
 

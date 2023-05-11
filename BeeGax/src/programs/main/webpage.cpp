@@ -14,30 +14,31 @@ const char* PARAM_INPUT_2 = "input_2";
 
 int temp_measure = 0;
 int temp_post = 0;
-String key = "";
 
 const char index_html_temp[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html><head>
-    <style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}
-    .button { background-color: #5F6B77; border: none; color: white; padding: 5px 15px; }
-    text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}" </style>
-    <title>Beeska Configuration Side</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head><body>
-    <h1>Beeska Configuration Side</h1>
-    Hardware Key: <input type="text" name="input_3">
-    <br>
-    <br>
-    Messintervall (Sekunden): <input type="text" name="input_1">
-    <br>
-    <br>
-    Postintervall (Minuten): <input type="text" name="input_2">
-    <br>
-    <br>
-    <input type="submit" value="Submit">
-    </form><br>
-    
-    </body></html>)rawliteral";
+  <title>ESP Input Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    function submitMessage() {
+      alert("Saved value to ESP SPIFFS");
+      setTimeout(function(){ document.location.reload(false); }, 500);   
+    }
+  </script></head><body>
+  <form action="/get" target="hidden-form">
+    inputString (current value %inputString%): <input type="text" name="inputString">
+    <input type="submit" value="Submit" onclick="submitMessage()">
+  </form><br>
+  <form action="/get" target="hidden-form">
+    inputInt (current value %inputInt%): <input type="number " name="inputInt">
+    <input type="submit" value="Submit" onclick="submitMessage()">
+  </form><br>
+  <form action="/get" target="hidden-form">
+    inputFloat (current value %inputFloat%): <input type="number " name="inputFloat">
+    <input type="submit" value="Submit" onclick="submitMessage()">
+  </form>
+  <iframe style="display:none" name="hidden-form"></iframe>
+</body></html>)rawliteral";
 
 void notFound(AsyncWebServerRequest *request) {
     request->send(404, "text/plain", "Not found");
@@ -47,7 +48,6 @@ void start_server() {
   // Send web page with input fields to client
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     String test = String(index_html_temp);
-    test.replace("{fdsa1111}", key);
     const char* index_html = test.c_str();
     request->send_P(200, "text/html", index_html);
   });
