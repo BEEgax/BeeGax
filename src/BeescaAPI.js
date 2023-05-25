@@ -20,7 +20,6 @@ class BeescaAPI {
             this.hives.push({id: `P${i}`, hardware_api_key: "+", location:"", name: ""});
             i++;
         }
-
         return this.hives;
     }
 

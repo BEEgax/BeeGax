@@ -9,11 +9,11 @@ const HiveSettings = ({route}) => {
     // get Hive by Id
     // parse correct props to settings screen
     return (
-      <View><SettingsScreen Name={buttonID} Location="none" Key="banana"></SettingsScreen></View> 
+      <View><SettingsScreen Name={buttonID} Location="not implemented" Key="not implemented"></SettingsScreen></View> 
     );
   }else{
     return (
-      <View><SettingsScreen></SettingsScreen></View> 
+      <View><SettingsScreen Name={buttonID} Location="" Key=""></SettingsScreen></View> 
     );
   }
 
@@ -21,6 +21,9 @@ const HiveSettings = ({route}) => {
 
 const SettingsScreen = (props) => {
   console.log(props);
+  if (Object.keys(props).length === 0){    
+    props = {"Key": "", "Location": "", "Name": ""}
+  }
   const {Name, Location, Key} = props;
   const [hiveName, setHiveName] = useState(Name.toString());
   const [location, setLocation] = useState(Location);
