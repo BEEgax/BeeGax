@@ -79,12 +79,16 @@ class BeescaAPI {
     }
 
     static async patchHive(hive) {
-        console.log("***********++++++++++++**********")
-    }
+        console.log(hive);
+        const response = await fetch(`http://167.235.150.74:8000/api/hive/${hive.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(hive)
+        }).catch((error) => console.error(error));
 
-    static getLocation(hive){
-        const location = ""
-        return location
+        await this.getHives();
     }
 
     static shortenList(list){

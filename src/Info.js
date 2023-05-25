@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   LineChart,
 } from "react-native-chart-kit";
-import { Svg, RNSVGSvgAndroid } from 'react-native-svg';
 import BeescaAPI from './BeescaAPI';
 
 const HiveInfo = ({route, navigation}) => {
@@ -20,9 +19,12 @@ const HiveInfo = ({route, navigation}) => {
     });
   }, [navigation, buttonID]);
 
+  const hive = BeescaAPI.hives.find((value) => value.id==buttonID);
+  console.log(hive);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{buttonID}</Text>
+      <Text style={styles.text}>{hive.name}</Text>
       <Chart buttonID={buttonID}></Chart>
     </View>
   );
