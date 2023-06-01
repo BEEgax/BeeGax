@@ -5,6 +5,7 @@
 #include "include/json_handler.h"
 #include "include/wifi.h"
 #include "include/config.h"
+//#include "include/loadcell.h" jonas :)
 
 // initialize needed objects
 HTTPClient sender;
@@ -32,14 +33,14 @@ void transfer_values(char* data) {
 		Serial.print("\nData:\n\n\n\n");
 		Serial.print(data);
 		Serial.print("\n\n\n\n");
-		WiFiClient client;                    // Create wifi client
-		HTTPClient http;                      // Create http client
+		WiFiClient client; // Create wifi client
+		HTTPClient http; // Create http client
 
-		http.begin(client, serverName);       // Begin client to server connection
+		http.begin(client, serverName); // Begin client to server connection
     
     	http.addHeader("Content-Type", "application/json");
 
-		http.POST(data);
+		http.POST(data); // Send data to URL
 
     	http.end();  // Free resources
   	}
@@ -48,12 +49,16 @@ void transfer_values(char* data) {
 	}
 }
 
-void check_measure(){  // Log the data from the sensors in intervalls
+/**
+ * The function checks if it's time to take measurements and logs humidity and temperature data if it
+ * is.
+ */
+void check_measure(){
 	if (measurement_timer >= mainConf.getMeasureInterval()){
 		delay(2000);
 		log_data(0, get_humidity());
 		delay(2000);
-		log_data(1, 0.0);
+		// log_data(1, load_cell_get()); jonas :)
 		delay(2000);
 		log_data(2, get_temp());
 		measurement_timer = 0;
@@ -62,6 +67,10 @@ void check_measure(){  // Log the data from the sensors in intervalls
 	}
 }
 
+/**
+ * The function checks if it's time to post data to the server and if so, transfers the values in JSON
+ * format.
+ */
 void check_post(){  // Post the Data to the server in intervalls
 	if (post_timer >= mainConf.getPostInterval()){
 		transfer_values((char*)get_json(KEY).c_str());
@@ -72,6 +81,9 @@ void check_post(){  // Post the Data to the server in intervalls
 	}
 }
 
+/**
+ * The function updates the configuration settings if the measure or post intervals have changed.
+ */
 void update_config(){
 	int mesu = get_config()["MEASURE"];
 	int post = get_config()["POST"];
@@ -85,7 +97,8 @@ void update_config(){
 void setup() {
 	Serial.begin(115200);
 	connect_to_WiFi();
-	start_server();  // start webserver for configuration
+	// start_server();  TODO: Muss gescheit implementiert werden :|
+	// load_cell_init(); TODO: Jonas da bitte initiern :)
 	update_config();  // update the timer limits
 	start_time();  // connect to timeserver 
 	dht_start();  // start the dht20 sensor
@@ -97,6 +110,5 @@ void loop() {
 	update_config();
 	check_measure();
 	check_post();
-
 	delay(1000);
 }
