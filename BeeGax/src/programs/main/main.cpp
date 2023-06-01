@@ -6,19 +6,27 @@
 #include "include/wifi.h"
 #include "include/config.h"
 
- 
+// initialize needed objects
 HTTPClient sender;
 Config mainConf;
 
 // Device Key
 const String KEY = "KEY5";
 
+// Server URL
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 
-int measurement_timer = 0;
-int post_timer = 0;
+// measure and post intervalls
+int measurement_timer = 20;
+int post_timer = 300;
 
 
+/**
+ * The function transfers data to a server using HTTP POST method if WiFi is connected.
+ * 
+ * @param data A pointer to a character array (string) that contains the data to be transferred to the
+ * server.
+ */
 void transfer_values(char* data) {
   	if(WiFi.status() == WL_CONNECTED){
 		Serial.print("\nData:\n\n\n\n");
