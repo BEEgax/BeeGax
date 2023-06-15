@@ -5,6 +5,7 @@ import {
   LineChart,
 } from "react-native-chart-kit";
 import BeescaAPI from './BeescaAPI';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const HiveInfo = ({route, navigation}) => {
   const {buttonID} = route.params;
@@ -13,7 +14,9 @@ const HiveInfo = ({route, navigation}) => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('HiveSettings', {buttonID: buttonID})}>
+          <View style={styles.iconContainer}>
           <Icon name="cog" size={30} color="#fff" />
+          </View>
         </TouchableOpacity>
       ),
     });
@@ -50,8 +53,9 @@ const Chart = ({buttonID}) => {
   }, []);
 
  return(
-  <View>
-      <Text>Hive Weight Chart</Text>
+  <ScrollView>
+      <View style={styles.chartContainer}>
+      <Text style={styles.chartText}>Hive Weight Chart</Text>
       <LineChart
         data={{
           labels: weightLabel,
@@ -74,7 +78,7 @@ const Chart = ({buttonID}) => {
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16
+            borderRadius: 16,
           },
           propsForDots: {
             r: "5",
@@ -85,10 +89,11 @@ const Chart = ({buttonID}) => {
         bezier
         style={{
           marginVertical: 8,
-          borderRadius: 16
+          borderRadius: 16,
         }}
       />
-      <Text>Hive Temperatures Chart</Text>
+      </View>
+      <Text style={styles.chartText}>Hive Temperatures Chart</Text>
       <LineChart
         data={{
           labels: tempLabel,
@@ -111,7 +116,9 @@ const Chart = ({buttonID}) => {
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16
+            borderRadius: 16,
+            margin: 100, // Add margin
+            padding: 100, // Add padding
           },
           propsForDots: {
             r: "5",
@@ -126,7 +133,7 @@ const Chart = ({buttonID}) => {
         }}
       />
 
-      <Text>Hive Humidities Chart</Text>
+      <Text style={styles.chartText}>Hive Humidities Chart</Text>
       <LineChart
         data={{
           labels: humLabel,
@@ -149,7 +156,7 @@ const Chart = ({buttonID}) => {
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16
+            borderRadius: 16,
           },
           propsForDots: {
             r: "5",
@@ -163,7 +170,7 @@ const Chart = ({buttonID}) => {
           borderRadius: 16
         }}
       />
-    </View>
+    </ScrollView>
  )
 }
 
@@ -178,6 +185,32 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     color: "#55a16b",
   },
+  chartContainer: {
+    // margin: 10,
+    // padding: 10,
+  },
+  text: {
+    marginTop: 30,
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#333333',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  chartText: {
+    fontSize: 17,
+    // fontWeight: 'bold',
+    color: '#333333',
+    textAlign: 'left',
+    marginBottom: 0,
+    padding: 0,
+    marginTop: 20,
+    marginLeft: 12,
+  },
+  iconContainer: {
+    paddingRight: 10,
+  },
+
 });
 
 export default HiveInfo;
