@@ -26,7 +26,7 @@ const HivesPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to the hives page!</Text>
+      <Text style={styles.text}>Welcome to the HivesPage!</Text>
       {buttonList.map((hive) => (
         renderButton(hive.hardware_api_key, hive.id)
       ))
@@ -34,6 +34,8 @@ const HivesPage = ({ navigation }) => {
     </View>
   );
 }
+
+
 
 
 const styles = StyleSheet.create({
@@ -91,5 +93,4 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
 });
-
 export default HivesPage;
