@@ -5,7 +5,7 @@
 #include "include/json_handler.h"
 #include "include/wifi.h"
 #include "include/config.h"
-//#include "include/loadcell.h" jonas :)
+#include "include/loadcell.h"
 
 // initialize needed objects
 HTTPClient sender;
@@ -58,7 +58,7 @@ void check_measure(){
 		delay(2000);
 		log_data(0, get_humidity());
 		delay(2000);
-		// log_data(1, load_cell_get()); jonas :)
+		log_data(1, get_weight());
 		delay(2000);
 		log_data(2, get_temp());
 		measurement_timer = 0;
@@ -98,7 +98,7 @@ void setup() {
 	Serial.begin(115200);
 	connect_to_WiFi();
 	// start_server();  TODO: Muss gescheit implementiert werden :|
-	// load_cell_init(); TODO: Jonas da bitte initiern :)
+	load_cell_init();  // TODO: Jonas da bitte initiern :)
 	update_config();  // update the timer limits
 	start_time();  // connect to timeserver 
 	dht_start();  // start the dht20 sensor
