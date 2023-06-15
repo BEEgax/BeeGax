@@ -12,14 +12,17 @@ HTTPClient sender;
 Config mainConf;
 
 // Device Key
-const String KEY = "KEY5";
+const String KEY = "jamann";
 
 // Server URL
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 
 // measure and post intervalls
-int measurement_timer = 20;
-int post_timer = 300;
+int measurement_timer = 0;
+int post_timer = 0;
+
+int measurement_intervall = 4;
+int post_intervall = 20;
 
 
 /**
@@ -54,13 +57,13 @@ void transfer_values(char* data) {
  * is.
  */
 void check_measure(){
-	if (measurement_timer >= mainConf.getMeasureInterval()){
+	if (measurement_timer >= measurement_intervall){
 		delay(2000);
-		log_data(0, get_humidity());
+		log_data(2, get_humidity());
 		delay(2000);
-		log_data(1, get_weight());
+		log_data(0, get_weight()*0.001);
 		delay(2000);
-		log_data(2, get_temp());
+		log_data(1, get_temp());
 		measurement_timer = 0;
 	} else {
 		measurement_timer++;
@@ -72,7 +75,7 @@ void check_measure(){
  * format.
  */
 void check_post(){  // Post the Data to the server in intervalls
-	if (post_timer >= mainConf.getPostInterval()){
+	if (post_timer >= post_intervall){
 		transfer_values((char*)get_json(KEY).c_str());
 		post_timer = 0;
 	}
@@ -96,9 +99,11 @@ void update_config(){
 
 void setup() {
 	Serial.begin(115200);
+	// mainConf.setMeasureInterval(measurement_intervall);
+	// mainConf.setPostInterval(post_intervall);
 	connect_to_WiFi();
 	// start_server();  TODO: Muss gescheit implementiert werden :|
-	load_cell_init();  // TODO: Jonas da bitte initiern :)
+	load_cell_init();
 	update_config();  // update the timer limits
 	start_time();  // connect to timeserver 
 	dht_start();  // start the dht20 sensor
