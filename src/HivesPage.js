@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, Button, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import BeescaAPI from "./BeescaAPI";
 
 
@@ -20,77 +20,68 @@ const HivesPage = ({ navigation }) => {
   };
   const [buttonList, setButtonList] = useState([]);
 
-  const renderButton = (buttonText, i) => {
-    return <Button key={i} title={buttonText} onPress={() => POPUPconf(buttonText, i)} />;
+  const renderButton = (hardwarekey, i, name) => {
+    return (
+        <>
+        {/* <Button key={i} title={buttonText} onPress={() => POPUPconf(buttonText, i)} /> */}
+        <TouchableWithoutFeedback key={i} title={hardwarekey} onPress={() => POPUPconf(hardwarekey, i)}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>{hardwarekey == "+" ? "+" : name}</Text>
+        </View>
+      </TouchableWithoutFeedback></>    
+    );
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to the HivesPage!</Text>
-      {buttonList.map((hive) => (
-        renderButton(hive.hardware_api_key, hive.id)
+      <View style={styles.row}>
+      <View style={styles.column}>
+      {buttonList.slice(0, 4).map((hive) => (
+        renderButton(hive.hardware_api_key, hive.id, hive.name)
       ))
       }
+              </View>
+        <View style={styles.column}>
+          {buttonList.slice(4, 8).map((hive) => renderButton(hive.hardware_api_key, hive.id, hive.name))}
+        </View>
+      </View>
     </View>
   );
 }
 
 
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF",
+    justifyContent: "center",
+    backgroundColor: "#f6f3ee",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
+  row: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  column: {
+    flexDirection: "column",
+    alignItems: "center",
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: "#FFFFFF",
-    shadowOffset: {
-      width: 0,
-      height: -3,
-    },
-  },
-  button: {
-    flex: 1,
+    width: 100,
+    height: 100,
+    margin: 10,
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: "#55a16b",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#BBBBBB",
-    height: "100%",
-  },
-  activeButton: {
-    backgroundColor: "#FFDB58",
   },
   buttonText: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginLeft: 5,
-  },
-  activeButtonText: {
-    color: "#FFFFFF",
+    color: "#f6f3ee",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
+
 export default HivesPage;

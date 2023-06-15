@@ -67,9 +67,9 @@ const Chart = ({buttonID}) => {
         yAxisSuffix="kg"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#315e6b",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundColor: "#55a16b",
+          backgroundGradientFrom: "#55a16b",
+          backgroundGradientTo: "#55a16b",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -79,7 +79,7 @@ const Chart = ({buttonID}) => {
           propsForDots: {
             r: "5",
             strokeWidth: "2",
-            stroke: "#315e6b"
+            stroke: "#55a16b"
           }
         }}
         bezier
@@ -104,9 +104,9 @@ const Chart = ({buttonID}) => {
         yAxisSuffix="°C"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#315e6b",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundColor: "#55a16b",
+          backgroundGradientFrom: "#55a16b",
+          backgroundGradientTo: "#55a16b",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -116,7 +116,7 @@ const Chart = ({buttonID}) => {
           propsForDots: {
             r: "5",
             strokeWidth: "2",
-            stroke: "#315e6b"
+            stroke: "#55a16b"
           }
         }}
         bezier
@@ -143,8 +143,8 @@ const Chart = ({buttonID}) => {
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#315e6b",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundGradientFrom: "#55a16b",
+          backgroundGradientTo: "#55a16b",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -154,7 +154,7 @@ const Chart = ({buttonID}) => {
           propsForDots: {
             r: "5",
             strokeWidth: "2",
-            stroke: "#315e6b"
+            stroke: "#55a16b"
           }
         }}
         bezier
@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
-    marginBottom: 10,
+    marginBottom: 50,
+    color: "#55a16b",
   },
 });
 
