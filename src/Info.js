@@ -43,12 +43,14 @@ const Chart = ({buttonID}) => {
 
   useEffect(() => {
     BeescaAPI.setMeasurements(buttonID).then(() => {
+      console.log(BeescaAPI.measurements)
       setWeightLabel(BeescaAPI.timeWeight);
       setTempLabel(BeescaAPI.timeTemp);
       setHumLabel(BeescaAPI.timeHum);
       setWeightData(BeescaAPI.weights);
       setTempData(BeescaAPI.temperatures)
       setHumData(BeescaAPI.humidities)
+
     });
   }, []);
 
@@ -88,7 +90,6 @@ const Chart = ({buttonID}) => {
         }}
         bezier
         style={{
-          marginVertical: 8,
           borderRadius: 16,
         }}
       />

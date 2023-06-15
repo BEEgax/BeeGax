@@ -14,7 +14,7 @@ const HiveSettings = ({ route }) => {
   } else {
     return (
       <View style={styles.container}>
-        <SettingsScreen Hid={buttonID} Name={hive.name} Location={hive.location} Key={hive.hardware_api_key} Post={true} />
+        <SettingsScreen Hid={buttonID} Name={hive.name} Location={hive.location} Key={''} Post={true} />
       </View>
     );
   }

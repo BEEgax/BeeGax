@@ -24,11 +24,11 @@ class BeescaAPI {
     }
 
     static async setMeasurements(hive_id) {
-        const data = await fetch(`http://167.235.150.74:8000/api/measurement/${hive_id}/1670669800/1682587200`)
+        const data = await fetch(`http://167.235.150.74:8000/api/measurement/${hive_id}`) //define timespan
         .then((response) => response.json())
         .catch((error) => console.error(error));
 
-        // console.log(data);
+        console.log(data);
         
         this.measurements = data.data
         this.timeWeight = [];
