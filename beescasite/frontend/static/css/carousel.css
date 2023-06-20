@@ -6,7 +6,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     */
-    background-color: green;
+  
+    height: 300px;
   }
   
   .carousel__item {
@@ -18,6 +19,7 @@
     font-size: 2em;
     color: #ffffff;
     display: none;
+    position: relative;
   }
   
   .carousel__item--selected {
@@ -36,12 +38,13 @@
     width: 100px;
     height: 35px;
     display: inline-block;
-    background: rgb(255, 0, 0);
+    background:black;
     border-radius: 10px;
     margin: 0 5px;
     cursor: pointer;
+    position: relative;
   }
   
   .carousel__button--selected {
-    background: rgb(0, 115, 255);
+    background: orange;
   }

@@ -1,19 +1,16 @@
 body {
-    margin-top: 80px;
-    margin-left: 80px;
+    margin: 80px;
     padding: 30px;
     background-size: cover;
     font-family: sans-serif;
     height: 100%;
-
-
-}
-
-.mainChart {
+  }
+  
+  .mainChart {
     z-index: 999;
-}
-
-.button {
+  }
+  
+  .button {
     border: none;
     color: white;
     padding: 15px 32px;
@@ -24,9 +21,9 @@ body {
     margin: 4px 2px;
     cursor: pointer;
     background-color: #d2d203;
-}
-
-header {
+  }
+  
+  header {
     background-color: #d2d203;
     position: fixed;
     left: 0;
@@ -35,40 +32,30 @@ header {
     height: 50px;
     display: flex;
     align-items: center;
-
-
-}
-
-.homeNav {
+  }
+  
+  .homeNav, header li a {
     color: black;
-}
-
-header * {
-    display: inline;
-}
-
-header nav ul li {
+    text-decoration: none;
+  }
+  
+  header nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  header nav ul li {
     margin: 20px;
-    color: black;
-}
-
-header li a {
-    color: black;
-    text-decoration: none;
-}
-
-h1 {
+  }
+  
+  h1, p {
     text-align: center;
     height: 2em;
-}
-
-p {
-    text-align: center;
-    height: 2em;
+  }
+  
+  p {
     font-size: large;
-}
-
-ul li {
-    color: black;
-    text-decoration: none;
-}
+  }
+  

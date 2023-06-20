@@ -1,17 +1,49 @@
+const URL = "http://167.235.150.74:8000/api/hive";
+
 var dataDiv;
 var mainDiv;
+
+var hives;
 var data = {};
 
 var startDate;
 var endDate;
 
+var current_hive = 0;
+
+async function getHives() {
+  const result = await fetch(URL).then((response) => response.json());
+  hives = result.data;
+  changeLabel();
+  buttonClicked();
+}
+
+async function hiveCounterUp() {
+  if (!hives) return;
+  current_hive++;
+  current_hive %= hives.length;
+  changeLabel();
+  buttonClicked();
+}
+
+function hiveCounterDown() {
+  if (!hives) return;
+  current_hive--;
+  current_hive = current_hive < 0 ? hives.length - 1 : current_hive;
+  changeLabel();  
+  buttonClicked();
+}
+
+async function changeLabel() {
+  var label = document.getElementById('hive_name_label');
+  label.innerHTML = hives[current_hive].name;
+}
+
 async function getData() {
-  console.log(startDate);
-  console.log(endDate);
-  const url = `http://localhost:8000/api/measurement/1/${startDate}/${endDate}`; //Server URL
+  const id = hives[current_hive].id;
+  const url = `http://167.235.150.74:8000/api/measurement/${id}/${startDate}/${endDate}`;
   const response = await fetch(url, {
     method: "GET",
-    mode: "same-origin",
   }).then((response) => response.json());
   return await response;
 }
@@ -25,80 +57,48 @@ function createListElement(value) {
 function formatTime(unixTime) {
   // Formats the unix time input into readable timeformat
 
-  let date = new Date(unixTime * 1000);
+  const date = new Date(unixTime * 1000);
 
-  let hours = date.getHours();
+  const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-  let minutes = "0" + date.getMinutes();
-
-  let seconds = "0" + date.getSeconds();
-
-  return hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  return (formattedDate)
 }
 
-function onlyUnique(value, index, self) {
-  // Checks if the id is uniqe
-
-  return self.indexOf(value) === index;
-}
-
-function myFunction() {
-  const first_input = document.getElementById("from");
-  const second_input = document.getElementById("myLocalDate");
+function getTimeSpan() {
+  var first_input = document.getElementById("from");
+  var second_input = document.getElementById("myLocalDate");
 
   startDate = new Date(first_input.value).valueOf().toString();
   endDate = new Date(second_input.value).valueOf().toString();
 
   startDate = startDate.substring(0, 10);
   endDate = endDate.substring(0, 10);
-
-  console.log(startDate);
-  console.log(endDate);
 }
 
 function updateTableValues() {
-  let today = new Date();
-  let date =
+  var today = new Date();
+  var date =
     today.getFullYear() +
     "-" +
     (today.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
     today.getDate().toString().padStart(2, "0");
-  let time =
+  var time =
     today.getHours().toString().padStart(2, "0") +
     ":" +
     today.getMinutes().toString().padStart(2, "0");
+  var dateTime = date + "T" + time;
 
-  let dateTime = date + "T" + time;
+  var toDate = document.getElementById("myLocalDate");
+  toDate.value = dateTime;
 
-  let toDate = document.getElementById("myLocalDate");
-  toDate.value = dateTime.toString();
-
-  let yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  date =
-    yesterday.getFullYear() +
-    "-" +
-    (yesterday.getMonth() + 1).toString().padStart(2, "0") +
-    "-" +
-    yesterday.getDate().toString().padStart(2, "0");
-  time =
-    yesterday.getHours().toString().padStart(2, "0") +
-    ":" +
-    yesterday.getMinutes().toString().padStart(2, "0");
-
-  dateTime = date + "T" + time;
-
-  let fromDate = document.getElementById("from");
-  fromDate.value = dateTime.toString();
+  document.getElementById("myLocalDate").value = dateTime.toString();
 }
 
 async function buttonClicked() {
   // Updates new value inputs
-
+  getTimeSpan();
   data = await getData();
-  console.log(data);
 
   let weigthValues = data.data.filter((x) => x.value_type == 0);
   let humidityValues = data.data.filter((x) => x.value_type == 2);
@@ -119,6 +119,7 @@ async function buttonClicked() {
 
 async function main() {
   mainDiv = document.getElementById("main");
+  getHives();
   updateTableValues();
 }
 

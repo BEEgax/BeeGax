@@ -16,7 +16,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -26,15 +25,15 @@ SECRET_KEY = 'django-insecure-e6#@8pr9br$uibfsynbh*n$)00f@_zn%kqy^_cx@!^ev3nko32
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 ALLOWED_HOSTS = ['167.235.150.74', '127.0.0.1', 'localhost']
+
 
 # Application definition
 
 INSTALLED_APPS = [
     'api',
     'rest_framework',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -77,13 +77,30 @@ WSGI_APPLICATION = 'beescasite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# read password from password.txt
+
+file_reader = open(str(BASE_DIR.parent) + '/password.txt')
+password = file_reader.read()
+file_reader.close()
+password = password.strip()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hivedata_db',
+        'USER': 'admin',
+        'PASSWORD': password,
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

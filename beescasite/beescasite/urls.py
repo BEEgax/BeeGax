@@ -21,6 +21,7 @@ from frontend import views as frontend_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/hive/', api_views.hive_all),
+    path('api/hive/<int:hive_id>', api_views.hive_detail),
     path('api/measurement/', api_views.measurement_all),
     path('api/measurement/<int:hive_id>', api_views.measurement_hive),
     path('api/measurement/<int:hive_id>/<int:starttime>/<int:endtime>', api_views.measurement_hive_timeline),

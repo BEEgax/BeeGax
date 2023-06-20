@@ -5,7 +5,7 @@ from .models import Measurement, Hive
 class HiveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hive
-        fields = ["id", "location", "hardware_api_key"]
+        fields = ["id", "name", "location", "hardware_api_key"]
 
 
 class MeasurementSerializer(serializers.ModelSerializer):

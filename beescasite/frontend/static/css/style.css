@@ -1,151 +1,183 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0px;
-    height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+  height: 100%;
+  background-color: #edd135;
 }
 
 main {
-    background-color: yellowgreen;
-    align-items: center;
-    text-align: center;
+  align-items: center;
+  text-align: center;
 
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  min-height: 100vh;
+  width: calc(100% - 200px);
+  text-align: center;
+  background-color: white;
 
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    min-height: 100vh;
-    width: calc(100% - 200px);
-    text-align: center;
-    background-color: rgb(89, 0, 255);
-    align-items: center;
-    float: right;
+  align-items: center;
+  float: right;
 }
 
 .mini_main {
-    margin: 100px 150px 100px 150px;
-    height: calc(100% - 180px);
-    width: calc(100% - 300px);
-    border-radius: 15px;
+  margin: 100px 150px 100px 150px;
+  height: calc(100% - 150px);
+  width: calc(100% - 300px);
+  border-radius: 15px;
 
-    background-color: #dfeb3d;
-    position: relative;
+  background-color: #edd135;
+  position: relative;
+}
+
+.map {
+  margin: 100px 100px 100px 100px;
 }
 
 #hives_table {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .add_hive_button {
-    box-shadow: 0px 0px 0px 0px #fff6af;
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    background-color: #ffec64;
-    border-radius: 6px;
-    border: 1px solid #ffaa22;
-    display: inline-block;
-    cursor: pointer;
-    color: #333333;
-    font-family: Arial;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 50px 60px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #ffee66;
-    margin: 30px
+  background-color: #e6cb30;
+  height: auto;
+  width: auto;
+  text-align: center;
+  border: 0px;
+  display: inline-block;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 28px;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  padding: 50px 60px;
+  text-decoration: none;
+  margin: 30px;
 }
 
 .add_hive_button:hover {
-    background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-    background-color: #ffab23;
+  background-color:  #dbac2c;
 }
 
 .add_hive_button:active {
-    position: relative;
-    top: 1px;
+  position: relative;
+  top: 1px;
+}
+
+.hive_button {
+  background-color: #edd135;
+  height: auto;
+  width: auto;
+  text-align: center;
+  border: 0px;
+  display: inline-block;
+  cursor: pointer;
+  color: #333333;
+  font-family: Arial;
+  font-size: 22px;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  padding: 40px 50px;
+  text-decoration: none;
+  margin: 20px;
+}
+
+#hive_name_label {
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.hive_location_cycler {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 200px;
-    height: 100vh;
-    min-height: 100vh;
-    text-align: center;
-   /* background-color: aqua;*/
-    align-items: center;
-    text-align: center;
-    justify-items: center;
-    float: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  min-height: 100vh;
+  text-align: center;
+  /* background-color: aqua;*/
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  float: left;
 }
 
 .navbar ul {
-    list-style-type: none;
-    position: absolute;
-    padding: 10px;
+  list-style-type: none;
+  position: absolute;
+  padding: 10px;
 
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .navbar_button {
-    background-color: #c7c745;
-    border-radius: 34px;
-    border: 8px solid #dfeb3d;
-    border-collapse: collapse;
-
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    font-size: 20px;
-    width: 100%;
-    margin: 10px 0px 10px 0px;
-    text-decoration: none;
-    text-shadow: 0px 0px 0px #b2bd1b;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: auto;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: black;
+  margin-bottom: 10px;
+  width: 80px;
+  height: 30px;
+  line-height: 5px;
 }
 
 .navbar_button button {
-    width: 100%;
+  width: 100%;
 }
 
 .navbar_button:hover {
-    background-color: #e3e335;
+  background-color: #edd135;
 }
 
 .navbar_button:active {
-    position: relative;
-    top: 1px;
+  position: relative;
+  top: 1px;
 }
 
 .content {
-    float: left;
-    right: 100%;
-    width: 500px;
+  float: left;
+  right: 100%;
+  width: 500px;
 }
 
 ul.align_list_horizontal {
-    list-style-type: none;
-    position: absolute;
-    display: flex;
-    padding: 10px;
+  list-style-type: none;
+  position: absolute;
+  display: flex;
+  padding: 10px;
 
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 ul.align_list_horizontal li {
-    float: left;
-    display: table;
-    text-align: center;
-    padding: 16px;
+  float: left;
+  display: table;
+  text-align: center;
+  padding: 16px;
 }
 .align_list_horizontal li p {
   display: table-cell;
@@ -154,59 +186,63 @@ ul.align_list_horizontal li {
 }
 
 .addbehive_popup {
-    width: 450px;
-    height: 200px;
-    background-color: antiquewhite;
-    border-radius: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    visibility: hidden;
-}
-  
-.open-addbeehive_popup {
-    visibility: visible;
+  width: 450px;
+  height: 225px;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  visibility: hidden;
 }
 
-  .addbehive_popup button {
-    width: 100px;
-    height: 20px;
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
+.open-addbeehive_popup {
+  visibility: visible;
+}
+
+.addbehive_popup button {
+  width: 100px;
+  height: 20px;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 .addbehive_popup input {
-    float: right;
-    width: 200px;
-    margin-right: 50px;
+  float: right;
+  width: 200px;
+  margin-right: 50px;
 }
 
 .addbehive_popup label {
-    float: left;
-    margin-left: 50px;
+  float: left;
+  margin-left: 50px;
 }
 
 .add_hive_button p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-}  
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 @font-face {
-    font-family: 'NavbarFont';
-    src: url('../media/fonts/denyut-font/Denyut-1GLRB.ttf') format('woff');
+  font-family: "NavbarFont";
+  src: url("../media/fonts/denyut-font/Denyut-1GLRB.ttf") format("woff");
 }
 
 .timestamp {
-    background-color: blue;
-    margin-left: 300px;
-    margin-right: 300px;
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 80px;
 }
 
 .mainChart {
-    margin-left: 300px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  height: 250px;
+
 }
+

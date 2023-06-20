@@ -1,4 +1,5 @@
 {% load static %}
+{% csrf_token %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,16 +10,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/x-icon" href="/static/media/test.ico" />
     <link rel="stylesheet" href={% static "../static/css/style.css" %}>
-    <link rel="icon" type="image/x-icon" href="../static/images/bwwhot.ico" />
+    <!--<script defer src={% static '../static/js/hive_manager.js' %}></script>-->
+    <link rel="icon" type="image/x-icon" href="../static/images/First_Icon.png" />
 </head>
 
 <body>
     <nav class="navbar">
         <ul>
             <li>
-                <img src={% static "/media/bee_logo.png" %} style="width:100%">
+                <img src={% static "/images/First_Icon.png" %} style="width:100%">
             </li>
             <li>
                 <a href="/" class="navbar_button">
@@ -44,23 +45,31 @@
         <div class="mini_main">
             <table id="hives_table">
                 <tr>
-                    <td><button id="button1" class="add_hive_button" type="button" onclick="openPopup(1)">+</button>
+                    <td><input id="button1" class="add_hive_button" type="button" onclick="openPopup(1)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button2" class="add_hive_button" type="button" onclick="openPopup(2)">+</button>
+                    <td><input id="button2" class="add_hive_button" type="button" onclick="openPopup(2)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button3" class="add_hive_button" type="button" onclick="openPopup(3)">+</button>
+                    <td><input id="button3" class="add_hive_button" type="button" onclick="openPopup(3)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button4" class="add_hive_button" type="button" onclick="openPopup(4)">+</button>
+                    <td><input id="button4" class="add_hive_button" type="button" onclick="openPopup(4)"
+                            value="+"></input>
                     </td>
                 </tr>
                 <tr>
-                    <td><button id="button5" class="add_hive_button" type="button" onclick="openPopup(5)">+</button>
+                    <td><input id="button5" class="add_hive_button" type="button" onclick="openPopup(5)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button6" class="add_hive_button" type="button" onclick="openPopup(6)">+</button>
+                    <td><input id="button6" class="add_hive_button" type="button" onclick="openPopup(6)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button7" class="add_hive_button" type="button" onclick="openPopup(7)">+</button>
+                    <td><input id="button7" class="add_hive_button" type="button" onclick="openPopup(7)"
+                            value="+"></input>
                     </td>
-                    <td><button id="button8" class="add_hive_button" type="button" onclick="openPopup(8)">+</button>
+                    <td><input id="button8" class="add_hive_button" type="button" onclick="openPopup(8)"
+                            value="+"></input>
                     </td>
                 </tr>
             </table>
@@ -69,31 +78,52 @@
     </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        const csrf_token = getCookie("csrftoken");
+        const URL = "http://167.235.150.74:8000/api/hive/";
+
+        var hives;
+
+        function addPopups() {
             let popupContainer = document.getElementById("addbeehive_popup_container");
 
+            let hive;
+            let hname = "";
+            let hlocation = "";
+            let hapikey = "";
             for (let i = 1; i <= 8; i++) {
+                if (i > hives.length) {
+                    hname = "";
+                    hlocation = "";
+                    hapikey = "";
+                } else {
+                    hive = hives[i-1];
+                    hname = hive.name;
+                    hlocation = hive.location;
+                    hapikey = hive.hardware_api_key;
+                }
+                
                 let popup = document.createElement("div");
                 popup.classList.add("addbehive_popup");
                 popup.innerHTML = `
                         <p>Edit Beehive ${i}</p>
-                        <form>
+                        
                             <label for="hivename_${i}">Hive Name:</label>
-                            <input type="text" id="hivename_${i}" name="hivename_${i}">
+                            <input type="text" id="hivename_${i}" name="hivename_${i}" maxlength="20" value="${hname}">
                             <br><br>
                             <label for="location_${i}">Location:</label>
-                            <input type="text" id="location_${i}" name="location_${i}">
+                            <input type="text" id="location_${i}" name="location_${i}" maxlength="20" value="${hlocation}">
                             <br><br>
                             <label for="api_key_${i}">API Key:</label>
-                            <input type="text" id="api_key_${i}" name="api_key_${i}">
+                            <input type="text" id="api_key_${i}" name="api_key_${i}" maxlength="15" value="${hapikey}">
                             <br><br>
                             <button type="close_button" onclick="closePopup(${i})">Close</button>
-                            <button type="save_button" onclick="closePopup(${i})">Save</button>
-                        </form>
+                            <button type="delete_button" onclick="deleteHive(${i})">Delete</button>
+                            <button type="save_button" onclick="saveInputs(${i})">Save</button>
+                        
                     `;
                 popupContainer.appendChild(popup);
             }
-        });
+        }
 
         function openPopup(index) {
             let popup = document.getElementsByClassName("addbehive_popup")[index - 1];
@@ -104,11 +134,114 @@
             let popup = document.getElementsByClassName("addbehive_popup")[index - 1];
             popup.classList.remove("open-addbeehive_popup");
         }
+
+        async function deleteHive(index) {
+
+            const hive = hives[index - 1];
+
+            const response = await fetch(URL + hive.id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": csrf_token,
+                },
+            });
+            
+            writeToButtons();
+        }
+
+        async function saveInputs(index) {
+
+            const hname = document.getElementById("hivename_" + index.toString()).value;
+            const hlocation = document.getElementById("location_" + index.toString()).value;
+            const hapikey = document.getElementById("api_key_" + index.toString()).value;
+
+            document.getElementById("button" + index.toString()).textContent = name;
+
+            const hive_obj = { name: hname, location: hlocation, hardware_api_key: hapikey };
+
+            const button = document.getElementById("button" + index);
+
+            if (button.value != "+"){
+                const response = await fetch(URL + hives[index - 1].id, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRFToken": csrf_token,
+                    },
+                    body: JSON.stringify(hive_obj)
+                });
+            } 
+            else {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRFToken": csrf_token,
+                    },
+                    body: JSON.stringify(hive_obj)
+                });
+            }
+
+            writeToButtons();
+        }
+
+        async function writeToButtons(){
+            // look through every hive in the database and if some fields are filled 
+            // write them to the html
+            await getHives();
+
+            var iteration = 1;
+            for (value of hives){
+                
+                let hname = document.getElementById("hivename_" + iteration).value;
+                let hlocation = document.getElementById("location_" + iteration).value;
+                let hapikey = document.getElementById("api_key_" + iteration).value;
+
+                hname = value.name;
+                hlocation = value.location;
+                hapikey = value.apikey;
+                
+                const button = document.getElementById("button" + iteration);
+                button.value = value.name;
+                iteration++;
+            }
+
+            while (iteration < 8) {
+                const button = document.getElementById("button" + iteration);
+                button.value = "+"
+                iteration++;
+            }
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        async function getHives() {
+            hives = (await fetch(URL).then((response) => response.json())).data;
+        }
+
+        async function main() {
+            
+            await getHives();
+
+            addPopups();
+            writeToButtons();
+        }
+
+        window.onload = main();
     </script>
 </body>
-
-<footer>
-
-</footer>
-
 </html>
