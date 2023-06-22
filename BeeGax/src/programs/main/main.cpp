@@ -7,12 +7,8 @@
 #include "include/config.h"
 #include "include/loadcell.h"
 
-// initialize needed objects
-HTTPClient sender;
-Config mainConf;
-
 // Device Key
-const String KEY = "jamann";
+const String KEY = "KEY1";
 
 // Server URL
 const char* serverName = "http://167.235.150.74:8000/api/measurement/";
@@ -21,8 +17,8 @@ const char* serverName = "http://167.235.150.74:8000/api/measurement/";
 int measurement_timer = 0;
 int post_timer = 0;
 
-int measurement_intervall = 4;
-int post_intervall = 20;
+const int measurement_intervall = 4;
+const int post_intervall = 20;
 
 
 /**
@@ -84,27 +80,12 @@ void check_post(){  // Post the Data to the server in intervalls
 	}
 }
 
-/**
- * The function updates the configuration settings if the measure or post intervals have changed.
- */
-void update_config(){
-	int mesu = get_config()["MEASURE"];
-	int post = get_config()["POST"];
-	if (mesu != mainConf.getMeasureInterval() ||
-			post != mainConf.getPostInterval()){
-		mainConf.setMeasureInterval(mesu);
-		mainConf.setPostInterval(post);
-	}
-}
-
 void setup() {
+	post_timer = 0;
+	measurement_timer = 0;
 	Serial.begin(115200);
-	// mainConf.setMeasureInterval(measurement_intervall);
-	// mainConf.setPostInterval(post_intervall);
 	connect_to_WiFi();
-	// start_server();  TODO: Muss gescheit implementiert werden :|
 	load_cell_init();
-	update_config();  // update the timer limits
 	start_time();  // connect to timeserver 
 	dht_start();  // start the dht20 sensor
 	init_json(KEY);   // create the json doc and initialize needed values
@@ -112,7 +93,6 @@ void setup() {
 }
 
 void loop() {
-	update_config();
 	check_measure();
 	check_post();
 	delay(1000);
